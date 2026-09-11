@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { 
@@ -24,6 +24,18 @@ export function Sidebar({ userName = 'Admin', userEmail = 'demo@example.com' }: 
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Lock body scroll when mobile menu is open to prevent page shifting
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   const navItems = [
     { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     { label: 'Clients', href: '/clients', icon: Users },
@@ -44,8 +56,8 @@ export function Sidebar({ userName = 'Admin', userEmail = 'demo@example.com' }: 
 
   return (
     <>
-      {/* Mobile Top Navigation Bar */}
-      <header className="lg:hidden flex items-center justify-between px-5 py-3.5 bg-zinc-950 text-white border-b border-zinc-800 relative z-50">
+      {/* Sticky Mobile Top Navigation Bar */}
+      <header className="lg:hidden sticky top-0 flex items-center justify-between px-5 py-3.5 bg-zinc-950 text-white border-b border-zinc-800 z-50 shadow-md">
         <Link href="/dashboard" className="flex items-center">
           <img src="/logo.png" alt="Faiz Dev & Co." className="h-7 w-auto brightness-0 invert object-contain" />
         </Link>
