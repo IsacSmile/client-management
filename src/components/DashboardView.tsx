@@ -249,58 +249,58 @@ export function DashboardView({
           </div>
         </div>
 
-        {/* 4 Dynamic Summary Cards (Compact 2x2 Grid on Mobile) */}
+        {/* 4 Dynamic Summary Cards (Compact 2x2 Grid on Mobile with Small Typography) */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {/* Card 1: Total Clients */}
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-3.5 sm:p-5 space-y-2 sm:space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <div className="bg-white border border-zinc-200/80 rounded-xl p-3 sm:p-4 space-y-1.5 shadow-2xs hover:shadow-xs transition-all duration-200">
             <div className="flex items-center justify-between text-zinc-500">
-              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Total Clients${scopeSuffix}`}>
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400 truncate" title={`Total Clients${scopeSuffix}`}>
                 Clients{scopeSuffix}
               </span>
-              <div className="p-1.5 sm:p-2.5 bg-indigo-50/80 text-indigo-600 rounded-xl border border-indigo-100 shrink-0">
-                <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <div className="p-1.5 bg-indigo-50/80 text-indigo-600 rounded-lg border border-indigo-100 shrink-0">
+                <Users className="w-3.5 h-3.5" />
               </div>
             </div>
-            <p className="text-xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">{totalClientsCount}</p>
+            <p className="text-lg sm:text-2xl font-bold text-zinc-900 tracking-tight">{totalClientsCount}</p>
           </div>
 
           {/* Card 2: Active Projects */}
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-3.5 sm:p-5 space-y-2 sm:space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <div className="bg-white border border-zinc-200/80 rounded-xl p-3 sm:p-4 space-y-1.5 shadow-2xs hover:shadow-xs transition-all duration-200">
             <div className="flex items-center justify-between text-zinc-500">
-              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Active Projects${scopeSuffix}`}>
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400 truncate" title={`Active Projects${scopeSuffix}`}>
                 Projects{scopeSuffix}
               </span>
-              <div className="p-1.5 sm:p-2.5 bg-amber-50/80 text-amber-600 rounded-xl border border-amber-100 shrink-0">
-                <Briefcase className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <div className="p-1.5 bg-amber-50/80 text-amber-600 rounded-lg border border-amber-100 shrink-0">
+                <Briefcase className="w-3.5 h-3.5" />
               </div>
             </div>
-            <p className="text-xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">{activeProjectsCount}</p>
+            <p className="text-lg sm:text-2xl font-bold text-zinc-900 tracking-tight">{activeProjectsCount}</p>
           </div>
 
           {/* Card 3: Payment Due */}
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-3.5 sm:p-5 space-y-2 sm:space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <div className="bg-white border border-zinc-200/80 rounded-xl p-3 sm:p-4 space-y-1.5 shadow-2xs hover:shadow-xs transition-all duration-200">
             <div className="flex items-center justify-between text-zinc-500">
-              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Payment Due${scopeSuffix}`}>
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400 truncate" title={`Payment Due${scopeSuffix}`}>
                 Payment Due{scopeSuffix}
               </span>
-              <div className="p-1.5 sm:p-2.5 bg-rose-50/80 text-rose-600 rounded-xl border border-rose-100 shrink-0">
-                <Wallet className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <div className="p-1.5 bg-rose-50/80 text-rose-600 rounded-lg border border-rose-100 shrink-0">
+                <Wallet className="w-3.5 h-3.5" />
               </div>
             </div>
-            <p className="text-xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">{formatCurrency(totalDue)}</p>
+            <p className="text-lg sm:text-2xl font-bold text-zinc-900 tracking-tight">{formatCurrency(totalDue)}</p>
           </div>
 
           {/* Card 4: Payment Received */}
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-3.5 sm:p-5 space-y-2 sm:space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <div className="bg-white border border-zinc-200/80 rounded-xl p-3 sm:p-4 space-y-1.5 shadow-2xs hover:shadow-xs transition-all duration-200">
             <div className="flex items-center justify-between text-zinc-500">
-              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Payment Received${scopeSuffix}`}>
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-400 truncate" title={`Payment Received${scopeSuffix}`}>
                 Received{scopeSuffix}
               </span>
-              <div className="p-1.5 sm:p-2.5 bg-emerald-50/80 text-emerald-600 rounded-xl border border-emerald-100 shrink-0">
-                <IndianRupee className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <div className="p-1.5 bg-emerald-50/80 text-emerald-600 rounded-lg border border-emerald-100 shrink-0">
+                <IndianRupee className="w-3.5 h-3.5" />
               </div>
             </div>
-            <p className="text-xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">{formatCurrency(totalReceived)}</p>
+            <p className="text-lg sm:text-2xl font-bold text-zinc-900 tracking-tight">{formatCurrency(totalReceived)}</p>
           </div>
         </div>
 
@@ -367,20 +367,20 @@ export function DashboardView({
                 </table>
               </div>
 
-              {/* Ultra-Minimal Mobile List (<640px) */}
-              <div className="sm:hidden divide-y divide-zinc-100 -mx-6 -mb-6">
+              {/* Breathable Mobile Cards with Small Typography (<640px) */}
+              <div className="sm:hidden space-y-3 pt-2">
                 {recentClients.map((c: RecentClientItem) => (
-                  <div key={c.id} className="p-4 flex flex-col gap-2 hover:bg-zinc-50/50 transition-colors">
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-9 h-9 rounded-xl bg-zinc-900 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">
+                  <div key={c.id} className="p-3.5 border border-zinc-200/80 rounded-xl bg-white space-y-2.5 shadow-2xs hover:border-zinc-300 transition-all">
+                    <div className="flex items-center justify-between gap-2.5">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white font-semibold text-[11px] flex items-center justify-center shrink-0 shadow-2xs">
                           {getInitials(c.name)}
                         </div>
                         <div className="min-w-0">
-                          <Link href={`/clients/${c.id}`} className="font-bold text-zinc-900 hover:underline text-sm truncate block">
+                          <Link href={`/clients/${c.id}`} className="font-semibold text-zinc-900 hover:underline text-xs sm:text-sm truncate block">
                             {c.name}
                           </Link>
-                          <p className="text-xs text-zinc-400 font-normal truncate mt-0.5">{c.projectName}</p>
+                          <p className="text-[11px] text-zinc-400 font-normal truncate mt-0.5">{c.projectName}</p>
                         </div>
                       </div>
 
@@ -390,7 +390,7 @@ export function DashboardView({
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between text-xs bg-zinc-50/70 p-2 rounded-xl border border-zinc-100">
+                    <div className="flex items-center justify-between text-[11px] bg-zinc-50/80 p-2 rounded-lg border border-zinc-100/90">
                       <span className="text-zinc-500">Upfront: <strong className="text-zinc-900 font-semibold">{formatCurrency(c.upfront)}</strong></span>
                       <span className="text-zinc-500">Remaining: <strong className={`font-semibold ${c.remaining > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(c.remaining)}</strong></span>
                     </div>
@@ -462,20 +462,20 @@ export function DashboardView({
                 </table>
               </div>
 
-              {/* Ultra-Minimal Mobile List (<640px) */}
-              <div className="sm:hidden divide-y divide-zinc-100 -mx-6 -mb-6">
+              {/* Breathable Mobile Cards with Small Typography (<640px) */}
+              <div className="sm:hidden space-y-3 pt-2">
                 {dueProjects.map((p: DueProjectItem, idx: number) => (
-                  <div key={idx} className="p-4 flex flex-col gap-2 hover:bg-zinc-50/50 transition-colors">
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-9 h-9 rounded-xl bg-zinc-900 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">
+                  <div key={idx} className="p-3.5 border border-zinc-200/80 rounded-xl bg-white space-y-2.5 shadow-2xs hover:border-zinc-300 transition-all">
+                    <div className="flex items-center justify-between gap-2.5">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white font-semibold text-[11px] flex items-center justify-center shrink-0 shadow-2xs">
                           {getInitials(p.clientName)}
                         </div>
                         <div className="min-w-0">
-                          <Link href={`/clients/${p.clientId}`} className="font-bold text-zinc-900 hover:underline text-sm truncate block">
+                          <Link href={`/clients/${p.clientId}`} className="font-semibold text-zinc-900 hover:underline text-xs sm:text-sm truncate block">
                             {p.clientName}
                           </Link>
-                          <p className="text-xs text-zinc-400 font-normal truncate mt-0.5">{p.projectName}</p>
+                          <p className="text-[11px] text-zinc-400 font-normal truncate mt-0.5">{p.projectName}</p>
                         </div>
                       </div>
 
@@ -484,9 +484,9 @@ export function DashboardView({
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between text-xs bg-zinc-50/70 p-2 rounded-xl border border-zinc-100">
+                    <div className="flex items-center justify-between text-[11px] bg-zinc-50/80 p-2 rounded-lg border border-zinc-100/90">
                       <span className="text-zinc-500">Paid: <strong className="text-emerald-700 font-semibold">{formatCurrency(p.paid)}</strong></span>
-                      <span className="text-zinc-500">Due: <strong className="text-rose-600 font-bold">{formatCurrency(p.remaining)}</strong></span>
+                      <span className="text-zinc-500">Due: <strong className="text-rose-600 font-semibold">{formatCurrency(p.remaining)}</strong></span>
                     </div>
                   </div>
                 ))}

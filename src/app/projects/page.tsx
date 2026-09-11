@@ -195,24 +195,24 @@ export default function ProjectsPage() {
               </div>
             </div>
 
-            {/* Minimal Mobile Divided List (<640px) */}
-            <div className="sm:hidden bg-white border border-zinc-200/80 rounded-2xl overflow-hidden shadow-xs divide-y divide-zinc-100">
+            {/* Breathable Mobile Cards with Small Typography (<640px) */}
+            <div className="sm:hidden space-y-3 pt-1">
               {filteredProjects.map((p) => {
                 const paid = calculateTotalPaid(p.payments);
                 const remaining = calculateRemaining(p.totalAmount, paid);
 
                 return (
-                  <div key={p.id} className="p-4 flex flex-col gap-2 hover:bg-zinc-50/50 transition-colors">
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-9 h-9 rounded-xl bg-zinc-900 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">
+                  <div key={p.id} className="p-3.5 border border-zinc-200/80 rounded-xl bg-white space-y-2.5 shadow-2xs hover:border-zinc-300 transition-all">
+                    <div className="flex items-center justify-between gap-2.5">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white font-semibold text-[11px] flex items-center justify-center shrink-0 shadow-2xs">
                           {getInitials(p.client.name)}
                         </div>
                         <div className="min-w-0">
-                          <Link href={`/clients/${p.client.id}`} className="font-bold text-zinc-900 hover:underline text-sm truncate block">
+                          <Link href={`/clients/${p.client.id}`} className="font-semibold text-zinc-900 hover:underline text-xs sm:text-sm truncate block">
                             {p.name}
                           </Link>
-                          <p className="text-xs text-zinc-400 font-normal truncate mt-0.5">{p.client.name} • {p.progress}%</p>
+                          <p className="text-[11px] text-zinc-400 font-normal truncate mt-0.5">{p.client.name} • {p.progress}%</p>
                         </div>
                       </div>
 
@@ -222,7 +222,7 @@ export default function ProjectsPage() {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between text-xs bg-zinc-50/70 p-2 rounded-xl border border-zinc-100">
+                    <div className="flex items-center justify-between text-[11px] bg-zinc-50/80 p-2 rounded-lg border border-zinc-100/90">
                       <span className="text-zinc-500">Paid: <strong className="text-emerald-700 font-semibold">{formatCurrency(paid)}</strong></span>
                       <span className="text-zinc-500">Remaining: <strong className={`font-semibold ${remaining > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(remaining)}</strong></span>
                     </div>
