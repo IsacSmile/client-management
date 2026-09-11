@@ -11,8 +11,7 @@ import {
   Settings, 
   LogOut, 
   Menu, 
-  X,
-  UserCheck
+  X
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -45,8 +44,8 @@ export function Sidebar({ userName = 'Admin', userEmail = 'demo@example.com' }: 
 
   return (
     <>
-      {/* Mobile Top Navigation */}
-      <header className="lg:hidden flex items-center justify-between px-5 py-3.5 bg-zinc-950 text-white border-b border-zinc-800">
+      {/* Mobile Top Navigation Bar */}
+      <header className="lg:hidden flex items-center justify-between px-5 py-3.5 bg-zinc-950 text-white border-b border-zinc-800 relative z-50">
         <Link href="/dashboard" className="flex items-center">
           <img src="/logo.png" alt="Faiz Dev & Co." className="h-7 w-auto brightness-0 invert object-contain" />
         </Link>
@@ -59,42 +58,52 @@ export function Sidebar({ userName = 'Admin', userEmail = 'demo@example.com' }: 
         </button>
       </header>
 
-      {/* Mobile Collapsible Navigation Drawer */}
+      {/* Floating Mobile Overlay Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-zinc-950 text-white border-b border-zinc-800 px-4 pt-2 pb-4 space-y-1">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                  isActive
-                    ? 'bg-zinc-800 text-white border border-zinc-700/60'
-                    : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
-                }`}
+        <>
+          {/* Dark Backdrop Overlay */}
+          <div
+            className="fixed inset-0 top-[57px] bg-black/60 backdrop-blur-xs z-40 lg:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+
+          {/* Floating Drawer Container */}
+          <div className="fixed top-[57px] left-0 right-0 bg-zinc-950 text-white border-b border-zinc-800 px-4 pt-3 pb-5 space-y-1.5 z-50 shadow-2xl lg:hidden animate-in slide-in-from-top-2 duration-200">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(`${item.href}/`));
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                    isActive
+                      ? 'bg-zinc-800 text-white border border-zinc-700/60 shadow-sm'
+                      : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+            
+            <div className="pt-3 border-t border-zinc-800 flex items-center justify-between text-xs text-zinc-400 px-3">
+              <div className="min-w-0 pr-2">
+                <p className="font-medium text-white truncate">{userName}</p>
+                <p className="text-zinc-400 truncate max-w-[180px]">{userEmail}</p>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-1.5 text-zinc-300 hover:text-white px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 transition-colors"
               >
-                <Icon className="w-4 h-4" />
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
-          <div className="pt-3 border-t border-zinc-800 flex items-center justify-between text-xs text-zinc-400 px-3">
-            <div>
-              <p className="font-medium text-white">{userName}</p>
-              <p className="text-zinc-400 truncate max-w-[180px]">{userEmail}</p>
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Logout</span>
+              </button>
             </div>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-1.5 text-zinc-300 hover:text-white px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800"
-            >
-              <LogOut className="w-3.5 h-3.5" />
-              <span>Logout</span>
-            </button>
           </div>
-        </div>
+        </>
       )}
 
       {/* Desktop & Tablet Sidebar */}
