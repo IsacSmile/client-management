@@ -6,7 +6,7 @@ import { Sidebar } from '@/components/Sidebar';
 import { StatusBadge } from '@/components/StatusBadge';
 import { DeleteClientButton } from '@/components/DeleteClientButton';
 import { calculateTotalPaid, calculateRemaining, getPaymentStatus, formatCurrency, getInitials } from '@/lib/finance';
-import { Plus, Search, UserPlus, FileText, Briefcase } from 'lucide-react';
+import { Plus, Search, UserPlus, FileText, Briefcase, Users, IndianRupee } from 'lucide-react';
 
 interface ClientWithProject {
   id: string;
@@ -59,6 +59,12 @@ export default function ClientsPage() {
     return matchName || matchEmail || matchPhone || matchProject;
   });
 
+  const totalClientsCount = clients.length;
+  const totalPortfolioValue = clients.reduce((acc, c) => {
+    const mainP = c.projects[0];
+    return acc + (mainP ? mainP.totalAmount : 0);
+  }, 0);
+
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-zinc-50/50">
       <Sidebar />
@@ -77,6 +83,29 @@ export default function ClientsPage() {
             <Plus className="w-4 h-4" />
             <span>Add Client</span>
           </Link>
+        </div>
+
+        {/* Top 2 Summary Cards (2 in one row on mobile) */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-3.5 sm:p-5 space-y-1.5 shadow-xs hover:shadow-md transition-all duration-200">
+            <div className="flex items-center justify-between text-zinc-500">
+              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-zinc-400 truncate">Total Clients</span>
+              <div className="p-1.5 sm:p-2 bg-indigo-50 text-indigo-600 rounded-xl border border-indigo-100 shrink-0">
+                <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              </div>
+            </div>
+            <p className="text-xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">{totalClientsCount}</p>
+          </div>
+
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-3.5 sm:p-5 space-y-1.5 shadow-xs hover:shadow-md transition-all duration-200">
+            <div className="flex items-center justify-between text-zinc-500">
+              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-zinc-400 truncate">Portfolio Value</span>
+              <div className="p-1.5 sm:p-2 bg-emerald-50 text-emerald-600 rounded-xl border border-emerald-100 shrink-0">
+                <IndianRupee className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              </div>
+            </div>
+            <p className="text-xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">{formatCurrency(totalPortfolioValue)}</p>
+          </div>
         </div>
 
         {/* Search Bar */}

@@ -6,7 +6,7 @@ import { Sidebar } from '@/components/Sidebar';
 import { StatusBadge } from '@/components/StatusBadge';
 import { DeleteClientButton } from '@/components/DeleteClientButton';
 import { calculateTotalPaid, calculateRemaining, formatCurrency, getInitials } from '@/lib/finance';
-import { Briefcase, Search, ArrowRight } from 'lucide-react';
+import { Briefcase, Search, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 interface ProjectItem {
   id: string;
@@ -60,6 +60,9 @@ export default function ProjectsPage() {
     return p.name.toLowerCase().includes(query) || p.client.name.toLowerCase().includes(query);
   });
 
+  const activeProjectsCount = projects.filter((p) => p.status !== 'Completed').length;
+  const completedProjectsCount = projects.filter((p) => p.status === 'Completed').length;
+
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-zinc-50/50">
       <Sidebar />
@@ -77,6 +80,29 @@ export default function ProjectsPage() {
           >
             <span>+ Add Client & Project</span>
           </Link>
+        </div>
+
+        {/* Top 2 Summary Cards (2 in one row on mobile) */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-3.5 sm:p-5 space-y-1.5 shadow-xs hover:shadow-md transition-all duration-200">
+            <div className="flex items-center justify-between text-zinc-500">
+              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-zinc-400 truncate">Active Projects</span>
+              <div className="p-1.5 sm:p-2 bg-amber-50 text-amber-600 rounded-xl border border-amber-100 shrink-0">
+                <Briefcase className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              </div>
+            </div>
+            <p className="text-xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">{activeProjectsCount}</p>
+          </div>
+
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-3.5 sm:p-5 space-y-1.5 shadow-xs hover:shadow-md transition-all duration-200">
+            <div className="flex items-center justify-between text-zinc-500">
+              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-zinc-400 truncate">Completed</span>
+              <div className="p-1.5 sm:p-2 bg-emerald-50 text-emerald-600 rounded-xl border border-emerald-100 shrink-0">
+                <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              </div>
+            </div>
+            <p className="text-xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">{completedProjectsCount}</p>
+          </div>
         </div>
 
         {/* Search Bar */}

@@ -485,22 +485,24 @@ export default function ClientDetailPage() {
               <h2 className="text-base font-semibold text-zinc-900">Payment Summary</h2>
             </div>
 
-            <div className="space-y-3 text-xs sm:text-sm">
-              <div className="flex justify-between py-2 border-b border-zinc-100">
-                <span className="text-zinc-500">Project Value</span>
-                <span className="font-semibold text-zinc-900">{formatCurrency(totalAmount)}</span>
+            <div className="grid grid-cols-2 gap-2.5">
+              <div className="p-3 bg-zinc-50/80 border border-zinc-200/60 rounded-xl text-left space-y-1">
+                <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider block truncate">Project Value</span>
+                <span className="text-sm sm:text-base font-extrabold text-zinc-900 block truncate">{formatCurrency(totalAmount)}</span>
               </div>
-              <div className="flex justify-between py-2 border-b border-zinc-100">
-                <span className="text-zinc-500">Total Received</span>
-                <span className="font-semibold text-zinc-900">{formatCurrency(totalPaid)}</span>
+              <div className="p-3 bg-emerald-50/70 border border-emerald-200/60 rounded-xl text-left space-y-1">
+                <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block truncate">Received</span>
+                <span className="text-sm sm:text-base font-extrabold text-emerald-950 block truncate">{formatCurrency(totalPaid)}</span>
               </div>
-              <div className="flex justify-between py-2 border-b border-zinc-100">
-                <span className="text-zinc-500">Remaining Balance</span>
-                <span className="font-semibold text-zinc-900 text-sm sm:text-base">{formatCurrency(remaining)}</span>
+              <div className={`p-3 rounded-xl text-left space-y-1 border ${remaining > 0 ? 'bg-rose-50/70 border-rose-200/60' : 'bg-zinc-50 border-zinc-200/60'}`}>
+                <span className={`text-[10px] font-bold uppercase tracking-wider block truncate ${remaining > 0 ? 'text-rose-700' : 'text-zinc-400'}`}>Remaining</span>
+                <span className={`text-sm sm:text-base font-extrabold block truncate ${remaining > 0 ? 'text-rose-950' : 'text-zinc-900'}`}>{formatCurrency(remaining)}</span>
               </div>
-              <div className="flex justify-between py-2 items-center">
-                <span className="text-zinc-500">Status</span>
-                <StatusBadge type="payment" status={payStatus} />
+              <div className="p-3 bg-zinc-50/80 border border-zinc-200/60 rounded-xl text-left space-y-1 flex flex-col justify-between">
+                <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider block truncate">Status</span>
+                <div className="pt-0.5">
+                  <StatusBadge type="payment" status={payStatus} />
+                </div>
               </div>
             </div>
           </div>
