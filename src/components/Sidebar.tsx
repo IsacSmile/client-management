@@ -98,14 +98,14 @@ export function Sidebar({ userName = 'Admin', userEmail = 'demo@example.com' }: 
       )}
 
       {/* Desktop & Tablet Sidebar */}
-      <aside className="hidden lg:flex flex-col w-64 bg-brand-nav text-white min-h-screen border-r border-brand-secondary flex-shrink-0">
+      <aside className="hidden lg:flex flex-col w-64 bg-brand-nav text-white lg:sticky lg:top-0 lg:h-screen border-r border-brand-secondary flex-shrink-0 z-20">
         {/* Header */}
-        <Link href="/dashboard" className="px-6 py-5 border-b border-brand-secondary flex items-center hover:bg-brand-secondary/40 transition-colors">
+        <Link href="/dashboard" className="px-6 py-5 border-b border-brand-secondary flex items-center hover:bg-brand-secondary/40 transition-colors flex-shrink-0">
           <img src="/logo.png" alt="Faiz Dev & Co." className="h-9 w-auto brightness-0 invert object-contain" />
         </Link>
 
         {/* Navigation Links */}
-        <nav className="flex-1 px-4 py-6 space-y-1.5">
+        <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(`${item.href}/`));
@@ -127,7 +127,7 @@ export function Sidebar({ userName = 'Admin', userEmail = 'demo@example.com' }: 
         </nav>
 
         {/* User Footer & Logout */}
-        <div className="p-4 border-t border-brand-secondary bg-[#2b3035]">
+        <div className="p-4 border-t border-brand-secondary bg-[#2b3035] flex-shrink-0">
           <div className="flex items-center justify-between">
             <div className="min-w-0 pr-2">
               <p className="text-sm font-semibold text-white truncate">{userName}</p>
