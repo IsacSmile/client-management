@@ -47,7 +47,7 @@ export default function LoginPage() {
         <div className="flex flex-col items-center justify-center text-center space-y-2 pb-1">
           <Logo size="lg" variant="dark" className="mx-auto mb-1" />
           <h2 className="text-xl font-bold text-zinc-900 tracking-tight">Client Portal</h2>
-          <p className="text-xs text-zinc-500 font-normal">Sign in to manage client projects and financial ledgers</p>
+          <p className="text-xs text-zinc-500 font-normal">Sign in to manage client projects &amp; ledgers</p>
         </div>
 
         {error && (
