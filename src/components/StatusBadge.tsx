@@ -23,19 +23,19 @@ export function StatusBadge({ type, status }: StatusBadgeProps) {
     let dotStyle = 'bg-zinc-500';
 
     if (payStatus === 'Paid') {
-      badgeStyle = 'bg-emerald-50 text-emerald-700 border-emerald-200/70';
+      badgeStyle = 'bg-emerald-50 text-emerald-800 border-emerald-200/80 shadow-2xs';
       dotStyle = 'bg-emerald-500';
     } else if (payStatus === 'Partial Payment') {
-      badgeStyle = 'bg-amber-50 text-amber-700 border-amber-200/70';
+      badgeStyle = 'bg-amber-50 text-amber-800 border-amber-200/80 shadow-2xs';
       dotStyle = 'bg-amber-500';
     } else if (payStatus === 'Unpaid') {
-      badgeStyle = 'bg-rose-50 text-rose-700 border-rose-200/70';
+      badgeStyle = 'bg-rose-50 text-rose-800 border-rose-200/80 shadow-2xs';
       dotStyle = 'bg-rose-500';
     }
 
     return (
-      <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-semibold border rounded-full ${badgeStyle}`}>
-        <span className={`h-1.5 w-1.5 rounded-full ${dotStyle}`} />
+      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold border rounded-full ${badgeStyle}`}>
+        <span className={`h-1.5 w-1.5 rounded-full ${dotStyle} shrink-0`} />
         <span>{payStatus}</span>
       </span>
     );
@@ -49,22 +49,22 @@ export function StatusBadge({ type, status }: StatusBadgeProps) {
   let dotStyle = 'bg-zinc-500';
 
   if (projStatus === 'Completed') {
-    badgeStyle = 'bg-emerald-50 text-emerald-700 border-emerald-200/70';
+    badgeStyle = 'bg-emerald-50 text-emerald-800 border-emerald-200/80 shadow-2xs';
     dotStyle = 'bg-emerald-500';
   } else if (projStatus === 'InProgress') {
-    badgeStyle = 'bg-sky-50 text-sky-700 border-sky-200/70';
+    badgeStyle = 'bg-sky-50 text-sky-800 border-sky-200/80 shadow-2xs';
     dotStyle = 'bg-sky-500';
   } else if (projStatus === 'WaitingForClient') {
-    badgeStyle = 'bg-amber-50 text-amber-700 border-amber-200/70';
+    badgeStyle = 'bg-amber-50 text-amber-800 border-amber-200/80 shadow-2xs';
     dotStyle = 'bg-amber-500';
   } else if (projStatus === 'OnHold') {
-    badgeStyle = 'bg-rose-50 text-rose-700 border-rose-200/70';
+    badgeStyle = 'bg-rose-50 text-rose-800 border-rose-200/80 shadow-2xs';
     dotStyle = 'bg-rose-500';
   }
 
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-semibold border rounded-full ${badgeStyle}`}>
-      <span className={`h-1.5 w-1.5 rounded-full ${dotStyle}`} />
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-bold border rounded-full ${badgeStyle}`}>
+      <span className={`h-1.5 w-1.5 rounded-full ${dotStyle} shrink-0`} />
       <span>{label}</span>
     </span>
   );

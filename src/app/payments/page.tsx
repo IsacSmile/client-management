@@ -266,23 +266,26 @@ function PaymentsPageContent() {
               </table>
             </div>
 
-            {/* Redesigned Mobile Collapsed Cards (<640px) */}
-            <div className="sm:hidden p-3 space-y-3 bg-zinc-50/40">
+            {/* Redesigned Premium Mobile Collapsed Cards (<640px) */}
+            <div className="sm:hidden p-3.5 space-y-3.5 bg-zinc-50/50">
               {filteredRows.map((r, idx) => (
-                <div key={idx} className="p-4 border border-zinc-200/80 rounded-2xl bg-white shadow-xs hover:shadow-md transition-all space-y-3">
+                <div 
+                  key={idx} 
+                  className="p-4.5 border border-zinc-200/90 rounded-2xl bg-white shadow-xs hover:shadow-md transition-all duration-200 space-y-3.5"
+                >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-10 h-10 rounded-xl bg-zinc-900 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs border border-zinc-800">
+                      <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-950 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs border border-zinc-800">
                         {getInitials(r.clientName)}
                       </div>
                       <div className="min-w-0">
-                        <Link href={`/clients/${r.clientId}`} className="font-bold text-zinc-900 hover:text-zinc-600 transition-colors text-sm truncate block">
+                        <Link href={`/clients/${r.clientId}`} className="font-extrabold text-zinc-900 hover:text-zinc-600 transition-colors text-base tracking-tight truncate block">
                           {r.clientName}
                         </Link>
-                        <div className="flex items-center gap-1.5 mt-0.5">
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium border border-zinc-200/50">
+                        <div className="flex items-center gap-1.5 mt-1">
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-zinc-100/90 text-zinc-700 text-[11px] font-semibold border border-zinc-200/60">
                             <Briefcase className="w-3 h-3 text-zinc-400" />
-                            <span className="truncate max-w-[140px]">{r.projectName}</span>
+                            <span className="truncate max-w-[150px]">{r.projectName}</span>
                           </span>
                         </div>
                       </div>
@@ -290,21 +293,27 @@ function PaymentsPageContent() {
                     <StatusBadge type="payment" status={r.status} />
                   </div>
 
-                  {/* 3-Column Financial Grid */}
-                  <div className="grid grid-cols-3 gap-2 p-2.5 bg-zinc-50/80 rounded-xl border border-zinc-200/60 text-center">
-                    <div>
-                      <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider block">TOTAL</span>
-                      <span className="text-xs font-semibold text-zinc-900">{formatCurrency(r.totalAmount)}</span>
+                  {/* 3-Column Financial Grid Pill Cards */}
+                  <div className="grid grid-cols-3 gap-2 pt-0.5">
+                    <div className="p-2.5 bg-zinc-50/80 border border-zinc-200/60 rounded-xl text-center">
+                      <span className="text-[9px] font-extrabold text-zinc-400 uppercase tracking-wider block mb-0.5">TOTAL</span>
+                      <span className="text-xs font-extrabold text-zinc-900 block truncate">{formatCurrency(r.totalAmount)}</span>
                     </div>
-                    <div>
-                      <span className="text-[10px] font-bold text-emerald-600/90 uppercase tracking-wider block">
+                    <div className="p-2.5 bg-emerald-50/70 border border-emerald-200/60 rounded-xl text-center">
+                      <span className="text-[9px] font-extrabold text-emerald-700 uppercase tracking-wider block mb-0.5">
                         {preset !== 'all_time' ? 'PAID (RANGE)' : 'PAID'}
                       </span>
-                      <span className="text-xs font-semibold text-emerald-700">{formatCurrency(r.paid)}</span>
+                      <span className="text-xs font-extrabold text-emerald-950 block truncate">{formatCurrency(r.paid)}</span>
                     </div>
-                    <div>
-                      <span className="text-[10px] font-bold text-rose-500/90 uppercase tracking-wider block">DUE</span>
-                      <span className={`text-xs font-bold ${r.due > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(r.due)}</span>
+                    <div className={`p-2.5 rounded-xl text-center border ${
+                      r.due > 0 ? 'bg-rose-50/70 border-rose-200/60' : 'bg-zinc-50 border-zinc-200/60'
+                    }`}>
+                      <span className={`text-[9px] font-extrabold uppercase tracking-wider block mb-0.5 ${
+                        r.due > 0 ? 'text-rose-700' : 'text-zinc-400'
+                      }`}>DUE</span>
+                      <span className={`text-xs font-extrabold block truncate ${
+                        r.due > 0 ? 'text-rose-950' : 'text-zinc-900'
+                      }`}>{formatCurrency(r.due)}</span>
                     </div>
                   </div>
                 </div>
