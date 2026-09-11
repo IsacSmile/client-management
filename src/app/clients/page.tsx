@@ -213,8 +213,8 @@ export default function ClientsPage() {
               </div>
             </div>
 
-            {/* Redesigned Premium Mobile Floating Cards (<640px) */}
-            <div className="sm:hidden space-y-3.5">
+            {/* Minimal Mobile Divided List (<640px) */}
+            <div className="sm:hidden bg-white border border-zinc-200/80 rounded-2xl overflow-hidden shadow-xs divide-y divide-zinc-100">
               {filteredClients.map((c) => {
                 const mainProject = c.projects[0];
                 const totalAmount = mainProject ? mainProject.totalAmount : 0;
@@ -223,57 +223,29 @@ export default function ClientsPage() {
                 const payStatus = mainProject ? getPaymentStatus(totalAmount, paid) : 'Unpaid';
 
                 return (
-                  <div 
-                    key={c.id} 
-                    className="p-4.5 border border-zinc-200/90 rounded-2xl bg-white shadow-xs hover:shadow-md transition-all duration-200 space-y-3.5"
-                  >
-                    <div className="flex items-start justify-between gap-3">
+                  <div key={c.id} className="p-4 flex flex-col gap-2 hover:bg-zinc-50/50 transition-colors">
+                    <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-950 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs border border-zinc-800">
+                        <div className="w-9 h-9 rounded-xl bg-zinc-900 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">
                           {getInitials(c.name)}
                         </div>
                         <div className="min-w-0">
-                          <Link href={`/clients/${c.id}`} className="font-extrabold text-zinc-900 hover:text-zinc-600 transition-colors text-base tracking-tight truncate block">
+                          <Link href={`/clients/${c.id}`} className="font-bold text-zinc-900 hover:underline text-sm truncate block">
                             {c.name}
                           </Link>
-                          <p className="text-xs text-zinc-400 truncate mt-0.5">{c.email || c.phone || 'No contact'}</p>
+                          <p className="text-xs text-zinc-400 font-normal truncate mt-0.5">{mainProject ? mainProject.name : (c.email || 'No project')}</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 shrink-0">
+
+                      <div className="flex items-center gap-1.5 shrink-0">
                         <StatusBadge type="payment" status={payStatus} />
                         <DeleteClientButton clientId={c.id} clientName={c.name} onSuccess={fetchClients} />
                       </div>
                     </div>
 
-                    {mainProject && (
-                      <div className="flex items-center gap-1.5">
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-zinc-100/90 text-zinc-700 text-[11px] font-semibold border border-zinc-200/60">
-                          <Briefcase className="w-3 h-3 text-zinc-400" />
-                          <span className="truncate max-w-[150px]">{mainProject.name}</span>
-                        </span>
-                      </div>
-                    )}
-
-                    {/* 3-Column Financial Grid Pill Cards */}
-                    <div className="grid grid-cols-3 gap-2 pt-0.5">
-                      <div className="p-2.5 bg-zinc-50/80 border border-zinc-200/60 rounded-xl text-center">
-                        <span className="text-[9px] font-extrabold text-zinc-400 uppercase tracking-wider block mb-0.5">TOTAL</span>
-                        <span className="text-xs font-extrabold text-zinc-900 block truncate">{formatCurrency(totalAmount)}</span>
-                      </div>
-                      <div className="p-2.5 bg-emerald-50/70 border border-emerald-200/60 rounded-xl text-center">
-                        <span className="text-[9px] font-extrabold text-emerald-700 uppercase tracking-wider block mb-0.5">PAID</span>
-                        <span className="text-xs font-extrabold text-emerald-950 block truncate">{formatCurrency(paid)}</span>
-                      </div>
-                      <div className={`p-2.5 rounded-xl text-center border ${
-                        remaining > 0 ? 'bg-rose-50/70 border-rose-200/60' : 'bg-zinc-50 border-zinc-200/60'
-                      }`}>
-                        <span className={`text-[9px] font-extrabold uppercase tracking-wider block mb-0.5 ${
-                          remaining > 0 ? 'text-rose-700' : 'text-zinc-400'
-                        }`}>DUE</span>
-                        <span className={`text-xs font-extrabold block truncate ${
-                          remaining > 0 ? 'text-rose-950' : 'text-zinc-900'
-                        }`}>{formatCurrency(remaining)}</span>
-                      </div>
+                    <div className="flex items-center justify-between text-xs bg-zinc-50/70 p-2 rounded-xl border border-zinc-100">
+                      <span className="text-zinc-500">Paid: <strong className="text-emerald-700 font-semibold">{formatCurrency(paid)}</strong></span>
+                      <span className="text-zinc-500">Remaining: <strong className={`font-semibold ${remaining > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(remaining)}</strong></span>
                     </div>
                   </div>
                 );

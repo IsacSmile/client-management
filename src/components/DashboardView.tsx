@@ -367,56 +367,32 @@ export function DashboardView({
                 </table>
               </div>
 
-              {/* Redesigned Premium Mobile Collapsed Cards (<640px) */}
-              <div className="sm:hidden space-y-3.5">
+              {/* Ultra-Minimal Mobile List (<640px) */}
+              <div className="sm:hidden divide-y divide-zinc-100 -mx-6 -mb-6">
                 {recentClients.map((c: RecentClientItem) => (
-                  <div 
-                    key={c.id} 
-                    className="p-4.5 border border-zinc-200/90 rounded-2xl bg-white shadow-xs hover:shadow-md transition-all duration-200 space-y-3.5"
-                  >
-                    <div className="flex items-start justify-between gap-3">
+                  <div key={c.id} className="p-4 flex flex-col gap-2 hover:bg-zinc-50/50 transition-colors">
+                    <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-950 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs border border-zinc-800">
+                        <div className="w-9 h-9 rounded-xl bg-zinc-900 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">
                           {getInitials(c.name)}
                         </div>
                         <div className="min-w-0">
-                          <Link href={`/clients/${c.id}`} className="font-extrabold text-zinc-900 hover:text-zinc-600 transition-colors text-base tracking-tight truncate block">
+                          <Link href={`/clients/${c.id}`} className="font-bold text-zinc-900 hover:underline text-sm truncate block">
                             {c.name}
                           </Link>
-                          <div className="flex items-center gap-1.5 mt-1">
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-zinc-100/90 text-zinc-700 text-[11px] font-semibold border border-zinc-200/60">
-                              <Briefcase className="w-3 h-3 text-zinc-400" />
-                              <span className="truncate max-w-[150px]">{c.projectName}</span>
-                            </span>
-                          </div>
+                          <p className="text-xs text-zinc-400 font-normal truncate mt-0.5">{c.projectName}</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 shrink-0">
+
+                      <div className="flex items-center gap-1.5 shrink-0">
                         <StatusBadge type="payment" status={c.payStatus} />
                         <DeleteClientButton clientId={c.id} clientName={c.name} />
                       </div>
                     </div>
 
-                    {/* 3-Column Financial Grid Pill Cards */}
-                    <div className="grid grid-cols-3 gap-2 pt-0.5">
-                      <div className="p-2.5 bg-emerald-50/70 border border-emerald-200/60 rounded-xl text-center">
-                        <span className="text-[9px] font-extrabold text-emerald-700 uppercase tracking-wider block mb-0.5">UPFRONT</span>
-                        <span className="text-xs font-extrabold text-emerald-950 block truncate">{formatCurrency(c.upfront)}</span>
-                      </div>
-                      <div className={`p-2.5 rounded-xl text-center border ${
-                        c.remaining > 0 ? 'bg-rose-50/70 border-rose-200/60' : 'bg-zinc-50 border-zinc-200/60'
-                      }`}>
-                        <span className={`text-[9px] font-extrabold uppercase tracking-wider block mb-0.5 ${
-                          c.remaining > 0 ? 'text-rose-700' : 'text-zinc-400'
-                        }`}>REMAINING</span>
-                        <span className={`text-xs font-extrabold block truncate ${
-                          c.remaining > 0 ? 'text-rose-950' : 'text-zinc-900'
-                        }`}>{formatCurrency(c.remaining)}</span>
-                      </div>
-                      <div className="p-2.5 bg-zinc-50/80 border border-zinc-200/60 rounded-xl text-center">
-                        <span className="text-[9px] font-extrabold text-zinc-400 uppercase tracking-wider block mb-0.5">PAYMENT</span>
-                        <span className="text-[11px] font-bold text-zinc-800 block truncate">{c.payStatus}</span>
-                      </div>
+                    <div className="flex items-center justify-between text-xs bg-zinc-50/70 p-2 rounded-xl border border-zinc-100">
+                      <span className="text-zinc-500">Upfront: <strong className="text-zinc-900 font-semibold">{formatCurrency(c.upfront)}</strong></span>
+                      <span className="text-zinc-500">Remaining: <strong className={`font-semibold ${c.remaining > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(c.remaining)}</strong></span>
                     </div>
                   </div>
                 ))}
@@ -486,49 +462,31 @@ export function DashboardView({
                 </table>
               </div>
 
-              {/* Redesigned Premium Mobile Collapsed Cards (<640px) */}
-              <div className="sm:hidden space-y-3.5">
+              {/* Ultra-Minimal Mobile List (<640px) */}
+              <div className="sm:hidden divide-y divide-zinc-100 -mx-6 -mb-6">
                 {dueProjects.map((p: DueProjectItem, idx: number) => (
-                  <div 
-                    key={idx} 
-                    className="p-4.5 border border-zinc-200/90 rounded-2xl bg-white shadow-xs hover:shadow-md transition-all duration-200 space-y-3.5"
-                  >
-                    <div className="flex items-start justify-between gap-3">
+                  <div key={idx} className="p-4 flex flex-col gap-2 hover:bg-zinc-50/50 transition-colors">
+                    <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-950 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs border border-zinc-800">
+                        <div className="w-9 h-9 rounded-xl bg-zinc-900 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">
                           {getInitials(p.clientName)}
                         </div>
                         <div className="min-w-0">
-                          <Link href={`/clients/${p.clientId}`} className="font-extrabold text-zinc-900 hover:text-zinc-600 transition-colors text-base tracking-tight truncate block">
+                          <Link href={`/clients/${p.clientId}`} className="font-bold text-zinc-900 hover:underline text-sm truncate block">
                             {p.clientName}
                           </Link>
-                          <div className="flex items-center gap-1.5 mt-1">
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-zinc-100/90 text-zinc-700 text-[11px] font-semibold border border-zinc-200/60">
-                              <Briefcase className="w-3 h-3 text-zinc-400" />
-                              <span className="truncate max-w-[150px]">{p.projectName}</span>
-                            </span>
-                          </div>
+                          <p className="text-xs text-zinc-400 font-normal truncate mt-0.5">{p.projectName}</p>
                         </div>
                       </div>
+
                       <div className="flex items-center gap-1 shrink-0">
                         <DeleteClientButton clientId={p.clientId} clientName={p.clientName} />
                       </div>
                     </div>
 
-                    {/* 3-Column Financial Grid Pill Cards */}
-                    <div className="grid grid-cols-3 gap-2 pt-0.5">
-                      <div className="p-2.5 bg-zinc-50/80 border border-zinc-200/60 rounded-xl text-center">
-                        <span className="text-[9px] font-extrabold text-zinc-400 uppercase tracking-wider block mb-0.5">TOTAL</span>
-                        <span className="text-xs font-extrabold text-zinc-900 block truncate">{formatCurrency(p.totalAmount)}</span>
-                      </div>
-                      <div className="p-2.5 bg-emerald-50/70 border border-emerald-200/60 rounded-xl text-center">
-                        <span className="text-[9px] font-extrabold text-emerald-700 uppercase tracking-wider block mb-0.5">PAID</span>
-                        <span className="text-xs font-extrabold text-emerald-950 block truncate">{formatCurrency(p.paid)}</span>
-                      </div>
-                      <div className="p-2.5 bg-rose-50/70 border border-rose-200/60 rounded-xl text-center">
-                        <span className="text-[9px] font-extrabold text-rose-700 uppercase tracking-wider block mb-0.5">DUE</span>
-                        <span className="text-xs font-extrabold text-rose-950 block truncate">{formatCurrency(p.remaining)}</span>
-                      </div>
+                    <div className="flex items-center justify-between text-xs bg-zinc-50/70 p-2 rounded-xl border border-zinc-100">
+                      <span className="text-zinc-500">Paid: <strong className="text-emerald-700 font-semibold">{formatCurrency(p.paid)}</strong></span>
+                      <span className="text-zinc-500">Due: <strong className="text-rose-600 font-bold">{formatCurrency(p.remaining)}</strong></span>
                     </div>
                   </div>
                 ))}

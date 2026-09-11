@@ -195,68 +195,36 @@ export default function ProjectsPage() {
               </div>
             </div>
 
-            {/* Redesigned Premium Mobile Floating Cards (<640px) */}
-            <div className="sm:hidden space-y-3.5">
+            {/* Minimal Mobile Divided List (<640px) */}
+            <div className="sm:hidden bg-white border border-zinc-200/80 rounded-2xl overflow-hidden shadow-xs divide-y divide-zinc-100">
               {filteredProjects.map((p) => {
                 const paid = calculateTotalPaid(p.payments);
                 const remaining = calculateRemaining(p.totalAmount, paid);
 
                 return (
-                  <div 
-                    key={p.id} 
-                    className="p-4.5 border border-zinc-200/90 rounded-2xl bg-white shadow-xs hover:shadow-md transition-all duration-200 space-y-3.5"
-                  >
-                    <div className="flex items-start justify-between gap-3">
+                  <div key={p.id} className="p-4 flex flex-col gap-2 hover:bg-zinc-50/50 transition-colors">
+                    <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-950 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs border border-zinc-800">
+                        <div className="w-9 h-9 rounded-xl bg-zinc-900 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">
                           {getInitials(p.client.name)}
                         </div>
                         <div className="min-w-0">
-                          <Link href={`/clients/${p.client.id}`} className="font-extrabold text-zinc-900 hover:text-zinc-600 transition-colors text-base tracking-tight truncate block">
+                          <Link href={`/clients/${p.client.id}`} className="font-bold text-zinc-900 hover:underline text-sm truncate block">
                             {p.name}
                           </Link>
-                          <div className="flex items-center gap-1.5 mt-1">
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-zinc-100/90 text-zinc-700 text-[11px] font-semibold border border-zinc-200/60">
-                              <span className="text-zinc-400 font-normal">Client:</span>
-                              <span className="truncate max-w-[140px] font-bold text-zinc-900">{p.client.name}</span>
-                            </span>
-                          </div>
+                          <p className="text-xs text-zinc-400 font-normal truncate mt-0.5">{p.client.name} • {p.progress}%</p>
                         </div>
                       </div>
-                      <StatusBadge type="project" status={p.status} />
-                    </div>
 
-                    {/* 3-Column Financial Grid Pill Cards */}
-                    <div className="grid grid-cols-3 gap-2 pt-0.5">
-                      <div className="p-2.5 bg-zinc-50/80 border border-zinc-200/60 rounded-xl text-center">
-                        <span className="text-[9px] font-extrabold text-zinc-400 uppercase tracking-wider block mb-0.5">TOTAL</span>
-                        <span className="text-xs font-extrabold text-zinc-900 block truncate">{formatCurrency(p.totalAmount)}</span>
-                      </div>
-                      <div className="p-2.5 bg-emerald-50/70 border border-emerald-200/60 rounded-xl text-center">
-                        <span className="text-[9px] font-extrabold text-emerald-700 uppercase tracking-wider block mb-0.5">PAID</span>
-                        <span className="text-xs font-extrabold text-emerald-950 block truncate">{formatCurrency(paid)}</span>
-                      </div>
-                      <div className={`p-2.5 rounded-xl text-center border ${
-                        remaining > 0 ? 'bg-rose-50/70 border-rose-200/60' : 'bg-zinc-50 border-zinc-200/60'
-                      }`}>
-                        <span className={`text-[9px] font-extrabold uppercase tracking-wider block mb-0.5 ${
-                          remaining > 0 ? 'text-rose-700' : 'text-zinc-400'
-                        }`}>DUE</span>
-                        <span className={`text-xs font-extrabold block truncate ${
-                          remaining > 0 ? 'text-rose-950' : 'text-zinc-900'
-                        }`}>{formatCurrency(remaining)}</span>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <StatusBadge type="project" status={p.status} />
+                        <DeleteClientButton clientId={p.client.id} clientName={p.client.name} onSuccess={fetchProjects} />
                       </div>
                     </div>
 
-                    <div className="pt-2 flex items-center justify-between border-t border-zinc-100">
-                      <span className="text-xs font-semibold text-zinc-400">Progress: {p.progress}%</span>
-                      <Link
-                        href={`/clients/${p.client.id}`}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-zinc-800 hover:text-zinc-950 transition-colors"
-                      >
-                        <span>View Client & Details</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
+                    <div className="flex items-center justify-between text-xs bg-zinc-50/70 p-2 rounded-xl border border-zinc-100">
+                      <span className="text-zinc-500">Paid: <strong className="text-emerald-700 font-semibold">{formatCurrency(paid)}</strong></span>
+                      <span className="text-zinc-500">Remaining: <strong className={`font-semibold ${remaining > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(remaining)}</strong></span>
                     </div>
                   </div>
                 );
