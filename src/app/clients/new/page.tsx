@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Sidebar } from '@/components/Sidebar';
 import { Toast } from '@/components/Toast';
+import { CustomSelect } from '@/components/CustomSelect';
 import { ArrowLeft, User, Briefcase, IndianRupee } from 'lucide-react';
 import { ProjectStatus, PROJECT_STATUS_LABELS } from '@/lib/finance';
 
@@ -235,17 +236,10 @@ export default function NewClientPage() {
                   <label className="block text-xs font-medium text-zinc-700 mb-1.5">
                     Project Status
                   </label>
-                  <select
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value as ProjectStatus)}
-                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
-                  >
-                    {(Object.keys(PROJECT_STATUS_LABELS) as ProjectStatus[]).map((key) => (
-                      <option key={key} value={key}>
-                        {PROJECT_STATUS_LABELS[key]}
-                      </option>
-                    ))}
-                  </select>
+                  <CustomSelect 
+                    value={status} 
+                    onChange={(newStatus) => setStatus(newStatus)} 
+                  />
                 </div>
               </div>
             </div>
