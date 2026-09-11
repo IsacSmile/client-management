@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Sidebar } from '@/components/Sidebar';
 import { StatusBadge } from '@/components/StatusBadge';
+import { DeleteClientButton } from '@/components/DeleteClientButton';
 import { calculateTotalPaid, calculateRemaining, getPaymentStatus, formatCurrency } from '@/lib/finance';
 import { Plus, Search, UserPlus, FileText } from 'lucide-react';
 
@@ -134,6 +135,7 @@ export default function ClientsPage() {
                     <th className="py-3.5 px-4">Total Paid</th>
                     <th className="py-3.5 px-4">Remaining</th>
                     <th className="py-3.5 px-4">Status</th>
+                    <th className="py-3.5 px-4 text-right">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-brand-border">
@@ -163,6 +165,9 @@ export default function ClientsPage() {
                         <td className="py-4 px-4">
                           <StatusBadge type="payment" status={payStatus} />
                         </td>
+                        <td className="py-4 px-4 text-right">
+                          <DeleteClientButton clientId={c.id} clientName={c.name} onSuccess={fetchClients} />
+                        </td>
                       </tr>
                     );
                   })}
@@ -188,7 +193,10 @@ export default function ClientsPage() {
                         </Link>
                         <p className="text-xs text-brand-muted">{c.email || c.phone || 'No contact'}</p>
                       </div>
-                      <StatusBadge type="payment" status={payStatus} />
+                      <div className="flex items-center gap-2">
+                        <StatusBadge type="payment" status={payStatus} />
+                        <DeleteClientButton clientId={c.id} clientName={c.name} onSuccess={fetchClients} />
+                      </div>
                     </div>
 
                     <div className="text-xs text-brand-secondary space-y-1">

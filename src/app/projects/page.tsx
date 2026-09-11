@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Sidebar } from '@/components/Sidebar';
 import { StatusBadge } from '@/components/StatusBadge';
+import { DeleteClientButton } from '@/components/DeleteClientButton';
 import { calculateTotalPaid, calculateRemaining, formatCurrency } from '@/lib/finance';
 import { Briefcase, Search, ArrowRight } from 'lucide-react';
 
@@ -141,13 +142,16 @@ export default function ProjectsPage() {
                         <td className="py-4 px-4 text-brand-dark">{formatCurrency(paid)}</td>
                         <td className="py-4 px-4 text-brand-dark font-medium">{formatCurrency(remaining)}</td>
                         <td className="py-4 px-4 text-right">
-                          <Link
-                            href={`/clients/${p.client.id}`}
-                            className="inline-flex items-center gap-1 text-xs font-semibold text-brand-dark hover:underline"
-                          >
-                            <span>Details</span>
-                            <ArrowRight className="w-3 h-3" />
-                          </Link>
+                          <div className="flex items-center justify-end gap-2">
+                            <Link
+                              href={`/clients/${p.client.id}`}
+                              className="inline-flex items-center gap-1 text-xs font-semibold text-brand-dark hover:underline"
+                            >
+                              <span>Details</span>
+                              <ArrowRight className="w-3 h-3" />
+                            </Link>
+                            <DeleteClientButton clientId={p.client.id} clientName={p.client.name} onSuccess={fetchProjects} />
+                          </div>
                         </td>
                       </tr>
                     );

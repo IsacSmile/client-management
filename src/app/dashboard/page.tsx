@@ -12,6 +12,7 @@ import {
   calculateDashboardStats,
   PaymentStatus 
 } from '@/lib/finance';
+import { DeleteClientButton } from '@/components/DeleteClientButton';
 import { Users, Briefcase, IndianRupee, Wallet, Plus, ArrowRight } from 'lucide-react';
 
 export const revalidate = 0;
@@ -198,6 +199,7 @@ export default async function DashboardPage() {
                       <th className="py-3 px-4">Upfront</th>
                       <th className="py-3 px-4">Remaining</th>
                       <th className="py-3 px-4">Payment Status</th>
+                      <th className="py-3 px-4 text-right">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-brand-border">
@@ -214,6 +216,9 @@ export default async function DashboardPage() {
                         <td className="py-3.5 px-4">
                           <StatusBadge type="payment" status={c.payStatus} />
                         </td>
+                        <td className="py-3.5 px-4 text-right">
+                          <DeleteClientButton clientId={c.id} clientName={c.name} />
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -228,7 +233,10 @@ export default async function DashboardPage() {
                       <Link href={`/clients/${c.id}`} className="font-semibold text-brand-dark hover:underline">
                         {c.name}
                       </Link>
-                      <StatusBadge type="payment" status={c.payStatus} />
+                      <div className="flex items-center gap-2">
+                        <StatusBadge type="payment" status={c.payStatus} />
+                        <DeleteClientButton clientId={c.id} clientName={c.name} />
+                      </div>
                     </div>
                     <p className="text-xs text-brand-secondary">Project: {c.projectName}</p>
                     <div className="flex items-center justify-between text-xs pt-1 border-t border-brand-border text-brand-dark">
@@ -269,6 +277,7 @@ export default async function DashboardPage() {
                       <th className="py-3 px-4">Total Value</th>
                       <th className="py-3 px-4">Paid</th>
                       <th className="py-3 px-4">Remaining Due</th>
+                      <th className="py-3 px-4 text-right">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-brand-border">
@@ -283,6 +292,9 @@ export default async function DashboardPage() {
                         <td className="py-3.5 px-4 text-brand-dark">{formatCurrency(p.totalAmount)}</td>
                         <td className="py-3.5 px-4 text-brand-dark">{formatCurrency(p.paid)}</td>
                         <td className="py-3.5 px-4 font-semibold text-brand-dark">{formatCurrency(p.remaining)}</td>
+                        <td className="py-3.5 px-4 text-right">
+                          <DeleteClientButton clientId={p.clientId} clientName={p.clientName} />
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -297,7 +309,10 @@ export default async function DashboardPage() {
                       <Link href={`/clients/${p.clientId}`} className="font-semibold text-brand-dark hover:underline">
                         {p.clientName}
                       </Link>
-                      <span className="text-xs font-bold text-brand-dark">Due: {formatCurrency(p.remaining)}</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-bold text-brand-dark">Due: {formatCurrency(p.remaining)}</span>
+                        <DeleteClientButton clientId={p.clientId} clientName={p.clientName} />
+                      </div>
                     </div>
                     <p className="text-xs text-brand-secondary">Project: {p.projectName}</p>
                     <div className="flex items-center justify-between text-xs pt-1 border-t border-brand-border text-brand-secondary">
