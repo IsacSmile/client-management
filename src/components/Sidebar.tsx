@@ -47,11 +47,8 @@ export function Sidebar({ userName = 'Admin', userEmail = 'demo@example.com' }: 
     <>
       {/* Mobile Top Navigation */}
       <header className="lg:hidden flex items-center justify-between px-4 py-3 bg-brand-nav text-white border-b border-brand-secondary">
-        <Link href="/dashboard" className="flex items-center gap-2.5">
-          <div className="bg-white px-2 py-1 rounded-md flex items-center justify-center">
-            <img src="/logo.png" alt="Faiz Dev & Co." className="h-6 w-auto object-contain" />
-          </div>
-          <span className="font-bold text-base tracking-tight text-white">Faiz Dev & Co.</span>
+        <Link href="/dashboard" className="flex items-center">
+          <img src="/logo.png" alt="Faiz Dev & Co." className="h-7 w-auto brightness-0 invert object-contain" />
         </Link>
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -103,14 +100,8 @@ export function Sidebar({ userName = 'Admin', userEmail = 'demo@example.com' }: 
       {/* Desktop & Tablet Sidebar */}
       <aside className="hidden lg:flex flex-col w-64 bg-brand-nav text-white min-h-screen border-r border-brand-secondary flex-shrink-0">
         {/* Header */}
-        <Link href="/dashboard" className="p-5 border-b border-brand-secondary flex items-center gap-3 hover:bg-brand-secondary/40 transition-colors">
-          <div className="bg-white px-2.5 py-1.5 rounded-md flex items-center justify-center flex-shrink-0">
-            <img src="/logo.png" alt="Faiz Dev & Co." className="h-8 w-auto object-contain" />
-          </div>
-          <div className="min-w-0">
-            <h1 className="font-bold text-sm tracking-tight text-white truncate">Faiz Dev & Co.</h1>
-            <p className="text-xs text-brand-icon truncate">Client Portal</p>
-          </div>
+        <Link href="/dashboard" className="px-6 py-5 border-b border-brand-secondary flex items-center hover:bg-brand-secondary/40 transition-colors">
+          <img src="/logo.png" alt="Faiz Dev & Co." className="h-9 w-auto brightness-0 invert object-contain" />
         </Link>
 
         {/* Navigation Links */}
