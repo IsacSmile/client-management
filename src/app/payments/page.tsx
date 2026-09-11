@@ -131,25 +131,25 @@ function PaymentsPageContent() {
         </div>
 
         {/* Top Summary Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-1.5 shadow-sm">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-3.5 sm:p-5 space-y-1.5 shadow-xs">
             <div className="flex items-center justify-between text-zinc-500">
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">{receivedCardTitle}</span>
-              <div className="p-2 bg-zinc-100/80 rounded-xl border border-zinc-200/60">
-                <IndianRupee className="w-4 h-4 text-zinc-700" />
+              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-zinc-400 truncate">{receivedCardTitle}</span>
+              <div className="p-1.5 sm:p-2 bg-emerald-50 text-emerald-600 rounded-xl border border-emerald-100 shrink-0">
+                <IndianRupee className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
             </div>
-            <p className="text-2xl sm:text-3xl font-semibold text-zinc-900 tracking-tight">{formatCurrency(totalReceived)}</p>
+            <p className="text-xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">{formatCurrency(totalReceived)}</p>
           </div>
 
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-1.5 shadow-sm">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-3.5 sm:p-5 space-y-1.5 shadow-xs">
             <div className="flex items-center justify-between text-zinc-500">
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-500">Total Outstanding Due (All Time)</span>
-              <div className="p-2 bg-zinc-100/80 rounded-xl border border-zinc-200/60">
-                <Wallet className="w-4 h-4 text-zinc-700" />
+              <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-zinc-400 truncate">Total Due (All Time)</span>
+              <div className="p-1.5 sm:p-2 bg-rose-50 text-rose-600 rounded-xl border border-rose-100 shrink-0">
+                <Wallet className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
             </div>
-            <p className="text-2xl sm:text-3xl font-semibold text-zinc-900 tracking-tight">{formatCurrency(totalDueAllTime)}</p>
+            <p className="text-xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">{formatCurrency(totalDueAllTime)}</p>
           </div>
         </div>
 

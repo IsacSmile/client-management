@@ -218,15 +218,15 @@ export function DashboardView({
         </div>
 
         {/* Dynamic Date Filter Control Block */}
-        <div className="bg-white border border-zinc-200/80 p-4 sm:p-5 rounded-2xl shadow-sm space-y-3">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="p-2.5 bg-zinc-100/80 rounded-xl border border-zinc-200/60 text-zinc-700">
+        <div className="bg-white border border-zinc-200/80 p-3.5 sm:p-4.5 rounded-2xl shadow-xs">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 bg-zinc-100/90 rounded-xl border border-zinc-200/60 text-zinc-700 shrink-0">
                 <Filter className="w-4 h-4" />
               </div>
               <div>
-                <h2 className="text-sm font-semibold text-zinc-900">Dashboard Date Filter</h2>
-                <p className="text-xs text-zinc-500">Filter all summary metrics, clients, and payment ledgers by date period</p>
+                <h2 className="text-xs sm:text-sm font-extrabold text-zinc-900">Dashboard Filter</h2>
+                <p className="hidden sm:block text-xs text-zinc-500">Filter all summary metrics, clients, and payment ledgers by period</p>
               </div>
             </div>
 
@@ -249,58 +249,58 @@ export function DashboardView({
           </div>
         </div>
 
-        {/* 4 Dynamic Summary Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* 4 Dynamic Summary Cards (Compact 2x2 Grid on Mobile) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {/* Card 1: Total Clients */}
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-3.5 sm:p-5 space-y-2 sm:space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
             <div className="flex items-center justify-between text-zinc-500">
-              <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Total Clients${scopeSuffix}`}>
-                Total Clients{scopeSuffix}
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Total Clients${scopeSuffix}`}>
+                Clients{scopeSuffix}
               </span>
-              <div className="p-2.5 bg-indigo-50/80 text-indigo-600 rounded-xl border border-indigo-100">
-                <Users className="w-4 h-4" />
+              <div className="p-1.5 sm:p-2.5 bg-indigo-50/80 text-indigo-600 rounded-xl border border-indigo-100 shrink-0">
+                <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
             </div>
-            <p className="text-3xl font-extrabold text-zinc-900 tracking-tight">{totalClientsCount}</p>
+            <p className="text-xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">{totalClientsCount}</p>
           </div>
 
           {/* Card 2: Active Projects */}
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-3.5 sm:p-5 space-y-2 sm:space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
             <div className="flex items-center justify-between text-zinc-500">
-              <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Active Projects${scopeSuffix}`}>
-                Active Projects{scopeSuffix}
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Active Projects${scopeSuffix}`}>
+                Projects{scopeSuffix}
               </span>
-              <div className="p-2.5 bg-amber-50/80 text-amber-600 rounded-xl border border-amber-100">
-                <Briefcase className="w-4 h-4" />
+              <div className="p-1.5 sm:p-2.5 bg-amber-50/80 text-amber-600 rounded-xl border border-amber-100 shrink-0">
+                <Briefcase className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
             </div>
-            <p className="text-3xl font-extrabold text-zinc-900 tracking-tight">{activeProjectsCount}</p>
+            <p className="text-xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">{activeProjectsCount}</p>
           </div>
 
           {/* Card 3: Payment Due */}
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-3.5 sm:p-5 space-y-2 sm:space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
             <div className="flex items-center justify-between text-zinc-500">
-              <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Payment Due${scopeSuffix}`}>
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Payment Due${scopeSuffix}`}>
                 Payment Due{scopeSuffix}
               </span>
-              <div className="p-2.5 bg-rose-50/80 text-rose-600 rounded-xl border border-rose-100">
-                <Wallet className="w-4 h-4" />
+              <div className="p-1.5 sm:p-2.5 bg-rose-50/80 text-rose-600 rounded-xl border border-rose-100 shrink-0">
+                <Wallet className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
             </div>
-            <p className="text-3xl font-extrabold text-zinc-900 tracking-tight">{formatCurrency(totalDue)}</p>
+            <p className="text-xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">{formatCurrency(totalDue)}</p>
           </div>
 
           {/* Card 4: Payment Received */}
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-3.5 sm:p-5 space-y-2 sm:space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
             <div className="flex items-center justify-between text-zinc-500">
-              <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Payment Received${scopeSuffix}`}>
-                Payment Received{scopeSuffix}
+              <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Payment Received${scopeSuffix}`}>
+                Received{scopeSuffix}
               </span>
-              <div className="p-2.5 bg-emerald-50/80 text-emerald-600 rounded-xl border border-emerald-100">
-                <IndianRupee className="w-4 h-4" />
+              <div className="p-1.5 sm:p-2.5 bg-emerald-50/80 text-emerald-600 rounded-xl border border-emerald-100 shrink-0">
+                <IndianRupee className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
             </div>
-            <p className="text-3xl font-extrabold text-zinc-900 tracking-tight">{formatCurrency(totalReceived)}</p>
+            <p className="text-xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">{formatCurrency(totalReceived)}</p>
           </div>
         </div>
 
