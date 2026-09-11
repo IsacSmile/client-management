@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { verifyPassword, signToken, COOKIE_NAME } from '@/lib/auth';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: Request) {
   try {
     const { email, password } = await request.json();
