@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { UserCheck, Lock, Mail } from 'lucide-react';
+import { Logo } from '@/components/Logo';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -39,15 +40,13 @@ export default function LoginPage() {
     }
   };
 
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-50/50 px-4 py-12">
       <div className="w-full max-w-md bg-white border border-zinc-200/80 rounded-2xl p-8 space-y-6 shadow-sm">
         {/* Header */}
-        <div className="text-center space-y-2">
-          <img src="/logo.png" alt="Faiz Dev & Co." className="h-10 w-auto mx-auto object-contain mb-2" />
-          <h2 className="text-xl font-semibold text-zinc-900 tracking-tight">Client Portal</h2>
-          <p className="text-xs text-zinc-500 font-normal">Sign in to manage client projects and financial ledgers</p>
+        <div className="flex flex-col items-center justify-center text-center space-y-3 pb-1">
+          <Logo size="lg" variant="dark" />
+          <p className="text-xs text-zinc-500 font-normal pt-1">Sign in to manage client projects and financial ledgers</p>
         </div>
 
         {error && (

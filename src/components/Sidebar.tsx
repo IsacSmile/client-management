@@ -13,6 +13,7 @@ import {
   Menu, 
   X
 } from 'lucide-react';
+import { Logo } from '@/components/Logo';
 
 interface SidebarProps {
   userName?: string;
@@ -59,7 +60,7 @@ export function Sidebar({ userName = 'Admin', userEmail = 'demo@example.com' }: 
       {/* Sticky Mobile Top Navigation Bar */}
       <header className="lg:hidden sticky top-0 flex items-center justify-between px-5 py-3.5 bg-zinc-950 text-white border-b border-zinc-800 z-50 shadow-md">
         <Link href="/dashboard" className="flex items-center">
-          <img src="/logo.png" alt="Faiz Dev & Co." className="h-7 w-auto brightness-0 invert object-contain" />
+          <Logo variant="light" size="sm" />
         </Link>
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -122,7 +123,7 @@ export function Sidebar({ userName = 'Admin', userEmail = 'demo@example.com' }: 
       <aside className="hidden lg:flex flex-col w-64 bg-zinc-950 text-white lg:sticky lg:top-0 lg:h-screen border-r border-zinc-800/80 flex-shrink-0 z-20">
         {/* Header */}
         <Link href="/dashboard" className="px-6 py-5 border-b border-zinc-800/80 flex items-center hover:bg-zinc-900/50 transition-colors flex-shrink-0">
-          <img src="/logo.png" alt="Faiz Dev & Co." className="h-8 w-auto brightness-0 invert object-contain" />
+          <Logo variant="light" size="md" />
         </Link>
 
         {/* Navigation Links */}
