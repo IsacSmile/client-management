@@ -10,6 +10,7 @@ import {
   PaymentStatus 
 } from '@/lib/finance';
 import { DatePreset, getPresetLabel } from '@/lib/date-filters';
+import { CustomDateRangePicker } from '@/components/CustomDateRangePicker';
 import { CreditCard, Search, IndianRupee, Wallet, Calendar, AlertCircle } from 'lucide-react';
 
 interface PaymentRow {
@@ -155,7 +156,7 @@ function PaymentsPageContent() {
         <div className="flex flex-col gap-3 bg-white border border-zinc-200/80 p-3.5 sm:p-4 rounded-2xl shadow-sm">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
             
-            {/* Left: Status Filter Tabs & Date Preset Dropdown */}
+            {/* Left: Status Filter Tabs & Custom Date Range Calendar */}
             <div className="flex flex-wrap items-center gap-2">
               {/* Status Tabs */}
               <div className="flex items-center gap-1 bg-zinc-100/80 p-1 rounded-xl border border-zinc-200/60">
@@ -174,24 +175,22 @@ function PaymentsPageContent() {
                 ))}
               </div>
 
-              {/* Date Preset Dropdown */}
-              <div className="flex items-center gap-1.5">
-                <div className="relative">
-                  <select
-                    value={preset}
-                    onChange={(e) => handlePresetChange(e.target.value as DatePreset)}
-                    className="pl-8 pr-7 py-1.5 text-xs font-medium bg-white border border-zinc-200 rounded-xl text-zinc-800 focus:outline-none focus:border-zinc-400 shadow-xs cursor-pointer appearance-none"
-                  >
-                    <option value="all_time">All Time</option>
-                    <option value="this_month">This Month</option>
-                    <option value="last_month">Last Month</option>
-                    <option value="last_3_months">Last 3 Months</option>
-                    <option value="custom">Custom Range</option>
-                  </select>
-                  <Calendar className="w-3.5 h-3.5 text-zinc-400 absolute left-2.5 top-2.5 pointer-events-none" />
-                  <span className="absolute right-2.5 top-2.5 pointer-events-none text-zinc-400 text-[10px]">▼</span>
-                </div>
-              </div>
+              {/* Custom Date Range Calendar Popover */}
+              <CustomDateRangePicker
+                preset={preset}
+                customFrom={customFrom}
+                customTo={customTo}
+                onPresetChange={(newPreset) => handlePresetChange(newPreset)}
+                onCustomRangeApply={(from, to) => {
+                  setCustomFrom(from);
+                  setCustomTo(to);
+                  const params = new URLSearchParams();
+                  params.set('range', 'custom');
+                  params.set('from', from);
+                  params.set('to', to);
+                  router.push(`/payments?${params.toString()}`);
+                }}
+              />
             </div>
 
             {/* Right: Search Input */}
@@ -206,47 +205,8 @@ function PaymentsPageContent() {
               />
             </div>
           </div>
-
-          {/* Custom Date Inputs (Shown inline when preset === 'custom') */}
-          {preset === 'custom' && (
-            <div className="pt-2.5 border-t border-zinc-100 flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-2 text-xs">
-                <span className="text-zinc-500 font-medium">From:</span>
-                <input
-                  type="date"
-                  value={customFrom}
-                  onChange={(e) => setCustomFrom(e.target.value)}
-                  className="px-2.5 py-1 text-xs bg-white border border-zinc-200 rounded-lg text-zinc-800 focus:outline-none focus:border-zinc-400 shadow-xs"
-                />
-              </div>
-
-              <div className="flex items-center gap-2 text-xs">
-                <span className="text-zinc-500 font-medium">To:</span>
-                <input
-                  type="date"
-                  value={customTo}
-                  onChange={(e) => setCustomTo(e.target.value)}
-                  className="px-2.5 py-1 text-xs bg-white border border-zinc-200 rounded-lg text-zinc-800 focus:outline-none focus:border-zinc-400 shadow-xs"
-                />
-              </div>
-
-              <button
-                onClick={handleApplyCustomRange}
-                disabled={isApplyDisabled}
-                className="px-3.5 py-1 text-xs font-semibold rounded-lg bg-zinc-900 text-white disabled:bg-zinc-200 disabled:text-zinc-400 disabled:cursor-not-allowed hover:bg-zinc-800 transition-all shadow-xs"
-              >
-                Apply
-              </button>
-
-              {isInvalidCustomRange && (
-                <div className="flex items-center gap-1.5 text-xs text-red-600 font-medium">
-                  <AlertCircle className="w-3.5 h-3.5" />
-                  <span>From date cannot be after To date</span>
-                </div>
-              )}
-            </div>
-          )}
         </div>
+
 
         {/* Payment Ledger Table */}
         {loading ? (

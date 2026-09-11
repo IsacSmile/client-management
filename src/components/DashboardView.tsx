@@ -14,6 +14,7 @@ import {
   PaymentStatus 
 } from '@/lib/finance';
 import { DatePreset, getPaymentDateRange, getPresetLabel } from '@/lib/date-filters';
+import { CustomDateRangePicker } from '@/components/CustomDateRangePicker';
 import { 
   Users, 
   Briefcase, 
@@ -228,64 +229,23 @@ export function DashboardView({
               </div>
             </div>
 
-            {/* Filter Buttons */}
-            <div className="flex items-center gap-1 bg-zinc-100/80 p-1 rounded-xl border border-zinc-200/60 overflow-x-auto max-w-full">
-              {(['all_time', 'this_month', 'last_month', 'last_3_months', 'custom'] as const).map((pKey) => (
-                <button
-                  key={pKey}
-                  onClick={() => handlePresetChange(pKey)}
-                  className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all whitespace-nowrap ${
-                    preset === pKey
-                      ? 'bg-white text-zinc-900 shadow-xs font-semibold'
-                      : 'text-zinc-600 hover:text-zinc-900'
-                  }`}
-                >
-                  {getPresetLabel(pKey)}
-                </button>
-              ))}
-            </div>
+            {/* Custom Interactive Calendar & Preset Picker */}
+            <CustomDateRangePicker
+              preset={preset}
+              customFrom={customFrom}
+              customTo={customTo}
+              onPresetChange={(newPreset) => handlePresetChange(newPreset)}
+              onCustomRangeApply={(from, to) => {
+                setCustomFrom(from);
+                setCustomTo(to);
+                const params = new URLSearchParams();
+                params.set('range', 'custom');
+                params.set('from', from);
+                params.set('to', to);
+                router.push(`/dashboard?${params.toString()}`);
+              }}
+            />
           </div>
-
-          {/* Custom Date Input Pickers (Shown when Custom Range is selected) */}
-          {preset === 'custom' && (
-            <div className="pt-3 border-t border-zinc-100 flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-2 text-xs">
-                <Calendar className="w-3.5 h-3.5 text-zinc-400" />
-                <span className="text-zinc-500 font-medium">From:</span>
-                <input
-                  type="date"
-                  value={customFrom}
-                  onChange={(e) => setCustomFrom(e.target.value)}
-                  className="px-2.5 py-1 text-xs bg-white border border-zinc-200 rounded-lg text-zinc-800 focus:outline-none focus:border-zinc-400 shadow-xs"
-                />
-              </div>
-
-              <div className="flex items-center gap-2 text-xs">
-                <span className="text-zinc-500 font-medium">To:</span>
-                <input
-                  type="date"
-                  value={customTo}
-                  onChange={(e) => setCustomTo(e.target.value)}
-                  className="px-2.5 py-1 text-xs bg-white border border-zinc-200 rounded-lg text-zinc-800 focus:outline-none focus:border-zinc-400 shadow-xs"
-                />
-              </div>
-
-              <button
-                onClick={handleApplyCustomRange}
-                disabled={isApplyDisabled}
-                className="px-3.5 py-1 text-xs font-semibold rounded-lg bg-zinc-900 text-white disabled:bg-zinc-200 disabled:text-zinc-400 disabled:cursor-not-allowed hover:bg-zinc-800 transition-all shadow-xs"
-              >
-                Apply Filter
-              </button>
-
-              {isInvalidCustomRange && (
-                <div className="flex items-center gap-1.5 text-xs text-red-600 font-medium">
-                  <AlertCircle className="w-3.5 h-3.5" />
-                  <span>From date cannot be after To date</span>
-                </div>
-              )}
-            </div>
-          )}
         </div>
 
         {/* 4 Dynamic Summary Cards */}
