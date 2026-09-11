@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Sidebar } from '@/components/Sidebar';
 import { Toast } from '@/components/Toast';
-import { ArrowLeft, User, Briefcase, DollarSign } from 'lucide-react';
+import { ArrowLeft, User, Briefcase, IndianRupee } from 'lucide-react';
 import { ProjectStatus, PROJECT_STATUS_LABELS } from '@/lib/finance';
 
 export default function NewClientPage() {

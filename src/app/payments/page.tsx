@@ -11,7 +11,7 @@ import {
   formatCurrency, 
   PaymentStatus 
 } from '@/lib/finance';
-import { CreditCard, Search, DollarSign, Wallet } from 'lucide-react';
+import { CreditCard, Search, IndianRupee, Wallet } from 'lucide-react';
 
 interface PaymentRow {
   clientId: string;
@@ -98,7 +98,7 @@ export default function PaymentsPage() {
             <div className="flex items-center justify-between text-brand-secondary">
               <span className="text-xs font-semibold uppercase tracking-wider">Total Payment Received</span>
               <div className="p-2 bg-brand-surface rounded-md border border-brand-border">
-                <DollarSign className="w-4 h-4 text-brand-dark" />
+                <IndianRupee className="w-4 h-4 text-brand-dark" />
               </div>
             </div>
             <p className="text-3xl font-bold text-brand-dark">{formatCurrency(totalReceived)}</p>

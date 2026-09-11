@@ -5,7 +5,7 @@ import {
   AlertCircle, 
   CircleDashed, 
   PauseCircle, 
-  DollarSign, 
+  IndianRupee, 
   CheckCheck,
   CircleDot
 } from 'lucide-react';

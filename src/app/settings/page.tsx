@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Sidebar } from '@/components/Sidebar';
 import { Toast } from '@/components/Toast';
-import { User, Shield, DollarSign, LogOut, KeyRound } from 'lucide-react';
+import { User, Shield, IndianRupee, LogOut, KeyRound } from 'lucide-react';
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -103,7 +103,7 @@ export default function SettingsPage() {
         {/* Application Preferences */}
         <div className="bg-white border border-brand-border rounded-lg p-6 space-y-4">
           <div className="flex items-center gap-2 border-b border-brand-border pb-3">
-            <DollarSign className="w-5 h-5 text-brand-dark" />
+            <IndianRupee className="w-5 h-5 text-brand-dark" />
             <h2 className="text-xl font-semibold text-brand-dark">Application Preferences</h2>
           </div>
 

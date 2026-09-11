@@ -12,7 +12,7 @@ import {
   calculateDashboardStats,
   PaymentStatus 
 } from '@/lib/finance';
-import { Users, Briefcase, DollarSign, Wallet, Plus, ArrowRight } from 'lucide-react';
+import { Users, Briefcase, IndianRupee, Wallet, Plus, ArrowRight } from 'lucide-react';
 
 export const revalidate = 0;
 
@@ -164,7 +164,7 @@ export default async function DashboardPage() {
             <div className="flex items-center justify-between text-brand-secondary">
               <span className="text-xs font-semibold uppercase tracking-wider">Payment Received</span>
               <div className="p-2 bg-brand-surface rounded-md border border-brand-border">
-                <DollarSign className="w-4 h-4 text-brand-dark" />
+                <IndianRupee className="w-4 h-4 text-brand-dark" />
               </div>
             </div>
             <p className="text-3xl font-bold text-brand-dark">{formatCurrency(stats.totalReceived)}</p>
