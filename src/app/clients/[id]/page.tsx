@@ -216,9 +216,9 @@ export default function ClientDetailPage() {
 
   if (loading) {
     return (
-      <div className="flex flex-col lg:flex-row min-h-screen bg-brand-bg">
+      <div className="flex flex-col lg:flex-row min-h-screen bg-zinc-50/50">
         <Sidebar />
-        <main className="flex-1 p-8 max-w-7xl mx-auto w-full text-center text-brand-muted text-sm">
+        <main className="flex-1 p-8 max-w-7xl mx-auto w-full text-center text-zinc-400 text-xs sm:text-sm">
           Loading client details...
         </main>
       </div>
@@ -227,11 +227,11 @@ export default function ClientDetailPage() {
 
   if (!client) {
     return (
-      <div className="flex flex-col lg:flex-row min-h-screen bg-brand-bg">
+      <div className="flex flex-col lg:flex-row min-h-screen bg-zinc-50/50">
         <Sidebar />
         <main className="flex-1 p-8 max-w-7xl mx-auto w-full text-center space-y-4">
-          <p className="text-lg font-bold text-brand-dark">Client not found.</p>
-          <Link href="/clients" className="text-xs font-semibold text-brand-dark underline">
+          <p className="text-base font-semibold text-zinc-900">Client not found.</p>
+          <Link href="/clients" className="text-xs font-semibold text-zinc-900 hover:underline">
             Return to Clients List
           </Link>
         </main>
@@ -246,15 +246,15 @@ export default function ClientDetailPage() {
   const payStatus = mainProject ? getPaymentStatus(totalAmount, totalPaid) : 'Unpaid';
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-brand-bg">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-zinc-50/50">
       <Sidebar />
 
-      <main className="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full space-y-8">
+      <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-6">
         {/* Top Navigation & Action Buttons */}
-        <div className="space-y-4 border-b border-brand-border pb-4">
+        <div className="space-y-4 pb-2">
           <Link
             href="/clients"
-            className="inline-flex items-center gap-1 text-xs font-semibold text-brand-secondary hover:text-brand-dark transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-500 hover:text-zinc-900 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Clients</span>
@@ -263,18 +263,18 @@ export default function ClientDetailPage() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1">
               <div className="flex items-center gap-3">
-                <h1 className="text-3xl font-bold text-brand-dark tracking-tight">{client.name}</h1>
+                <h1 className="text-2xl sm:text-3xl font-semibold text-zinc-900 tracking-tight">{client.name}</h1>
                 <StatusBadge type="payment" status={payStatus} />
               </div>
-              <p className="text-sm text-brand-secondary">
-                Project: <strong className="text-brand-dark">{mainProject?.name || 'N/A'}</strong>
+              <p className="text-xs sm:text-sm text-zinc-500 font-normal">
+                Project: <strong className="text-zinc-900 font-medium">{mainProject?.name || 'N/A'}</strong>
               </p>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <button
                 onClick={() => setIsEditing(!isEditing)}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium text-brand-dark bg-white border border-brand-border rounded-md hover:bg-brand-surface transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-medium text-zinc-700 bg-white border border-zinc-200 rounded-xl hover:bg-zinc-50 transition-all shadow-sm active:scale-[0.98]"
               >
                 <Edit3 className="w-4 h-4" />
                 <span>{isEditing ? 'Cancel Edit' : 'Edit Client'}</span>
@@ -282,7 +282,7 @@ export default function ClientDetailPage() {
 
               <button
                 onClick={() => setIsDeleteOpen(true)}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium text-white bg-brand-dark border border-brand-dark rounded-md hover:bg-brand-nav transition-colors"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-medium text-rose-600 bg-rose-50/70 border border-rose-200/80 rounded-xl hover:bg-rose-100/80 transition-all shadow-sm active:scale-[0.98]"
               >
                 <Trash2 className="w-4 h-4" />
                 <span>Delete</span>
@@ -293,87 +293,87 @@ export default function ClientDetailPage() {
 
         {/* Inline Edit Form */}
         {isEditing && (
-          <form onSubmit={handleSaveEdit} className="bg-white border border-brand-border rounded-lg p-6 space-y-4 animate-in fade-in duration-150">
-            <h3 className="text-lg font-semibold text-brand-dark border-b border-brand-border pb-2">
+          <form onSubmit={handleSaveEdit} className="bg-white border border-zinc-200/80 rounded-2xl p-6 space-y-4 shadow-sm animate-in fade-in duration-150">
+            <h3 className="text-base font-semibold text-zinc-900 border-b border-zinc-100 pb-3">
               Edit Client & Project Details
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-brand-dark mb-1">Client Name *</label>
+                <label className="block text-xs font-medium text-zinc-700 mb-1.5">Client Name *</label>
                 <input
                   type="text"
                   required
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
-                  className="w-full px-3 py-2 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none"
+                  className="w-full px-3.5 py-2 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-brand-dark mb-1">Email</label>
+                <label className="block text-xs font-medium text-zinc-700 mb-1.5">Email</label>
                 <input
                   type="email"
                   value={editEmail}
                   onChange={(e) => setEditEmail(e.target.value)}
-                  className="w-full px-3 py-2 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none"
+                  className="w-full px-3.5 py-2 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-brand-dark mb-1">Phone</label>
+                <label className="block text-xs font-medium text-zinc-700 mb-1.5">Phone</label>
                 <input
                   type="tel"
                   value={editPhone}
                   onChange={(e) => setEditPhone(e.target.value)}
-                  className="w-full px-3 py-2 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none"
+                  className="w-full px-3.5 py-2 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-brand-dark mb-1">Project Name *</label>
+                <label className="block text-xs font-medium text-zinc-700 mb-1.5">Project Name *</label>
                 <input
                   type="text"
                   required
                   value={editProjectName}
                   onChange={(e) => setEditProjectName(e.target.value)}
-                  className="w-full px-3 py-2 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none"
+                  className="w-full px-3.5 py-2 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-brand-dark mb-1">Total Project Amount (₹) *</label>
+                <label className="block text-xs font-medium text-zinc-700 mb-1.5">Total Project Amount (₹) *</label>
                 <input
                   type="number"
                   required
                   min="0"
                   value={editTotalAmount}
                   onChange={(e) => setEditTotalAmount(e.target.value)}
-                  className="w-full px-3 py-2 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none"
+                  className="w-full px-3.5 py-2 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-brand-dark mb-1">Scope</label>
+              <label className="block text-xs font-medium text-zinc-700 mb-1.5">Scope</label>
               <textarea
                 rows={2}
                 value={editScope}
                 onChange={(e) => setEditScope(e.target.value)}
-                className="w-full px-3 py-2 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none"
+                className="w-full px-3.5 py-2 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
               />
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-2">
+            <div className="flex items-center justify-end gap-2.5 pt-2">
               <button
                 type="button"
                 onClick={() => setIsEditing(false)}
-                className="px-4 py-2 text-xs font-medium text-brand-dark bg-white border border-brand-border rounded-md hover:bg-brand-surface"
+                className="px-4 py-2 text-xs font-medium text-zinc-700 bg-white border border-zinc-200 rounded-xl hover:bg-zinc-50 transition-all shadow-sm"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 text-xs font-medium text-white bg-brand-nav rounded-md hover:bg-brand-dark"
+                className="px-4 py-2 text-xs font-medium text-white bg-zinc-900 hover:bg-zinc-800 rounded-xl transition-all shadow-sm"
               >
                 Save Changes
               </button>
@@ -384,84 +384,84 @@ export default function ClientDetailPage() {
         {/* Overview Grid: Client Info + Project Info */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Client Info Card */}
-          <div className="bg-white border border-brand-border rounded-lg p-6 space-y-4">
-            <div className="flex items-center gap-2 border-b border-brand-border pb-3">
-              <User className="w-5 h-5 text-brand-dark" />
-              <h2 className="text-xl font-semibold text-brand-dark">Client Information</h2>
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-6 space-y-4 shadow-sm">
+            <div className="flex items-center gap-2 border-b border-zinc-100 pb-3">
+              <User className="w-4 h-4 text-zinc-700" />
+              <h2 className="text-base font-semibold text-zinc-900">Client Information</h2>
             </div>
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between py-1 border-b border-brand-border/60">
-                <span className="text-brand-secondary">Full Name</span>
-                <span className="font-semibold text-brand-dark">{client.name}</span>
+            <div className="space-y-3 text-xs sm:text-sm">
+              <div className="flex justify-between py-1 border-b border-zinc-100">
+                <span className="text-zinc-500">Full Name</span>
+                <span className="font-medium text-zinc-900">{client.name}</span>
               </div>
-              <div className="flex justify-between py-1 border-b border-brand-border/60">
-                <span className="text-brand-secondary">Email</span>
-                <span className="font-medium text-brand-dark">{client.email || '—'}</span>
+              <div className="flex justify-between py-1 border-b border-zinc-100">
+                <span className="text-zinc-500">Email</span>
+                <span className="font-medium text-zinc-900">{client.email || '—'}</span>
               </div>
-              <div className="flex justify-between py-1 border-b border-brand-border/60">
-                <span className="text-brand-secondary">Phone</span>
-                <span className="font-medium text-brand-dark">{client.phone || '—'}</span>
+              <div className="flex justify-between py-1 border-b border-zinc-100">
+                <span className="text-zinc-500">Phone</span>
+                <span className="font-medium text-zinc-900">{client.phone || '—'}</span>
               </div>
               <div className="flex justify-between py-1">
-                <span className="text-brand-secondary">Created On</span>
-                <span className="text-brand-dark">{new Date(client.createdAt).toLocaleDateString('en-IN')}</span>
+                <span className="text-zinc-500">Created On</span>
+                <span className="text-zinc-900 font-medium">{new Date(client.createdAt).toLocaleDateString('en-IN')}</span>
               </div>
             </div>
           </div>
 
           {/* Project Info Card */}
-          <div className="bg-white border border-brand-border rounded-lg p-6 space-y-4">
-            <div className="flex items-center justify-between border-b border-brand-border pb-3">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-6 space-y-4 shadow-sm">
+            <div className="flex items-center justify-between border-b border-zinc-100 pb-3">
               <div className="flex items-center gap-2">
-                <Briefcase className="w-5 h-5 text-brand-dark" />
-                <h2 className="text-xl font-semibold text-brand-dark">Project Details</h2>
+                <Briefcase className="w-4 h-4 text-zinc-700" />
+                <h2 className="text-base font-semibold text-zinc-900">Project Details</h2>
               </div>
               {mainProject && <StatusBadge type="project" status={mainProject.status} />}
             </div>
 
             {mainProject ? (
-              <div className="space-y-4 text-sm">
+              <div className="space-y-4 text-xs sm:text-sm">
                 <div>
-                  <span className="text-xs font-semibold text-brand-secondary uppercase tracking-wider block">
+                  <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider block">
                     Project Name
                   </span>
-                  <p className="font-semibold text-brand-dark text-base">{mainProject.name}</p>
+                  <p className="font-semibold text-zinc-900 text-sm sm:text-base mt-0.5">{mainProject.name}</p>
                 </div>
 
                 <div>
-                  <span className="text-xs font-semibold text-brand-secondary uppercase tracking-wider block mb-1">
+                  <span className="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider block mb-1">
                     Scope of Work
                   </span>
-                  <p className="text-brand-secondary text-sm bg-brand-surface p-3 rounded-md border border-brand-border">
+                  <p className="text-zinc-600 text-xs sm:text-sm bg-zinc-50/70 p-3.5 rounded-xl border border-zinc-100 leading-relaxed font-normal">
                     {mainProject.scope || 'No scope details added.'}
                   </p>
                 </div>
 
                 {/* Progress Controls */}
                 <div className="space-y-2 pt-1">
-                  <div className="flex items-center justify-between text-xs font-semibold text-brand-dark">
-                    <span>Completion Progress</span>
-                    <span>{mainProject.progress}%</span>
+                  <div className="flex items-center justify-between text-xs font-medium text-zinc-900">
+                    <span className="text-zinc-500">Completion Progress</span>
+                    <span className="font-semibold">{mainProject.progress}%</span>
                   </div>
 
                   {/* Progress Bar */}
-                  <div className="w-full bg-brand-surface border border-brand-border rounded-full h-3 overflow-hidden">
+                  <div className="w-full bg-zinc-100 rounded-full h-2 overflow-hidden">
                     <div
-                      className="bg-brand-dark h-full transition-all duration-300"
+                      className="bg-zinc-900 h-full transition-all duration-300 rounded-full"
                       style={{ width: `${mainProject.progress}%` }}
                     />
                   </div>
 
                   {/* 0 / 25 / 50 / 75 / 100% Quick Buttons */}
-                  <div className="flex items-center justify-between gap-1 pt-1">
+                  <div className="flex items-center justify-between gap-1.5 pt-1">
                     {[0, 25, 50, 75, 100].map((val) => (
                       <button
                         key={val}
                         onClick={() => handleProgressChange(val)}
-                        className={`flex-1 py-1 text-xs font-semibold border rounded-md transition-colors ${
+                        className={`flex-1 py-1 text-xs font-medium rounded-lg border transition-all ${
                           mainProject.progress === val
-                            ? 'bg-brand-dark text-white border-brand-dark'
-                            : 'bg-white text-brand-dark border-brand-border hover:bg-brand-surface'
+                            ? 'bg-zinc-900 text-white border-zinc-900 shadow-sm'
+                            : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-50'
                         }`}
                       >
                         {val}%
@@ -471,7 +471,7 @@ export default function ClientDetailPage() {
                 </div>
               </div>
             ) : (
-              <p className="text-sm text-brand-muted">No active project linked.</p>
+              <p className="text-xs text-zinc-400">No active project linked.</p>
             )}
           </div>
         </div>
@@ -479,44 +479,44 @@ export default function ClientDetailPage() {
         {/* Financial Summary & Add Payment */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Payment Summary KPI Card */}
-          <div className="lg:col-span-1 bg-white border border-brand-border rounded-lg p-6 space-y-4">
-            <div className="flex items-center gap-2 border-b border-brand-border pb-3">
-              <CreditCard className="w-5 h-5 text-brand-dark" />
-              <h2 className="text-xl font-semibold text-brand-dark">Payment Summary</h2>
+          <div className="lg:col-span-1 bg-white border border-zinc-200/80 rounded-2xl p-6 space-y-4 shadow-sm">
+            <div className="flex items-center gap-2 border-b border-zinc-100 pb-3">
+              <CreditCard className="w-4 h-4 text-zinc-700" />
+              <h2 className="text-base font-semibold text-zinc-900">Payment Summary</h2>
             </div>
 
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between py-2 border-b border-brand-border/60">
-                <span className="text-brand-secondary">Project Value</span>
-                <span className="font-semibold text-brand-dark">{formatCurrency(totalAmount)}</span>
+            <div className="space-y-3 text-xs sm:text-sm">
+              <div className="flex justify-between py-2 border-b border-zinc-100">
+                <span className="text-zinc-500">Project Value</span>
+                <span className="font-semibold text-zinc-900">{formatCurrency(totalAmount)}</span>
               </div>
-              <div className="flex justify-between py-2 border-b border-brand-border/60">
-                <span className="text-brand-secondary">Total Received</span>
-                <span className="font-semibold text-brand-dark">{formatCurrency(totalPaid)}</span>
+              <div className="flex justify-between py-2 border-b border-zinc-100">
+                <span className="text-zinc-500">Total Received</span>
+                <span className="font-semibold text-zinc-900">{formatCurrency(totalPaid)}</span>
               </div>
-              <div className="flex justify-between py-2 border-b border-brand-border/60">
-                <span className="text-brand-secondary">Remaining Balance</span>
-                <span className="font-bold text-brand-dark text-base">{formatCurrency(remaining)}</span>
+              <div className="flex justify-between py-2 border-b border-zinc-100">
+                <span className="text-zinc-500">Remaining Balance</span>
+                <span className="font-semibold text-zinc-900 text-sm sm:text-base">{formatCurrency(remaining)}</span>
               </div>
-              <div className="flex justify-between py-2">
-                <span className="text-brand-secondary">Status</span>
+              <div className="flex justify-between py-2 items-center">
+                <span className="text-zinc-500">Status</span>
                 <StatusBadge type="payment" status={payStatus} />
               </div>
             </div>
           </div>
 
           {/* Add Payment Form */}
-          <div className="lg:col-span-2 bg-white border border-brand-border rounded-lg p-6 space-y-4">
-            <div className="flex items-center gap-2 border-b border-brand-border pb-3">
-              <Plus className="w-5 h-5 text-brand-dark" />
-              <h2 className="text-xl font-semibold text-brand-dark">Record New Payment</h2>
+          <div className="lg:col-span-2 bg-white border border-zinc-200/80 rounded-2xl p-6 space-y-4 shadow-sm">
+            <div className="flex items-center gap-2 border-b border-zinc-100 pb-3">
+              <Plus className="w-4 h-4 text-zinc-700" />
+              <h2 className="text-base font-semibold text-zinc-900">Record New Payment</h2>
             </div>
 
             <form onSubmit={handleAddPayment} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-brand-dark mb-1.5">
-                    Amount (INR ₹) <span className="text-brand-dark">*</span>
+                  <label className="block text-xs font-medium text-zinc-700 mb-1.5">
+                    Amount (INR ₹) <span className="text-zinc-900">*</span>
                   </label>
                   <input
                     type="number"
@@ -526,26 +526,26 @@ export default function ClientDetailPage() {
                     value={payAmount}
                     onChange={(e) => setPayAmount(e.target.value)}
                     placeholder="e.g. 25000"
-                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none focus:border-brand-dark transition-colors"
+                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-dark mb-1.5">
-                    Payment Date <span className="text-brand-dark">*</span>
+                  <label className="block text-xs font-medium text-zinc-700 mb-1.5">
+                    Payment Date <span className="text-zinc-900">*</span>
                   </label>
                   <input
                     type="date"
                     required
                     value={payDate}
                     onChange={(e) => setPayDate(e.target.value)}
-                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none focus:border-brand-dark transition-colors"
+                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-brand-dark mb-1.5">
+                <label className="block text-xs font-medium text-zinc-700 mb-1.5">
                   Note / Description (Optional)
                 </label>
                 <input
@@ -553,7 +553,7 @@ export default function ClientDetailPage() {
                   value={payNote}
                   onChange={(e) => setPayNote(e.target.value)}
                   placeholder="e.g. Milestone 2 installment / Final settlement"
-                  className="w-full px-3.5 py-2.5 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none focus:border-brand-dark transition-colors"
+                  className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                 />
               </div>
 
@@ -561,7 +561,7 @@ export default function ClientDetailPage() {
                 <button
                   type="submit"
                   disabled={payLoading}
-                  className="px-5 py-2.5 text-sm font-medium text-white bg-brand-nav hover:bg-brand-dark border border-brand-dark rounded-md transition-colors"
+                  className="px-5 py-2.5 text-xs sm:text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 rounded-xl transition-all shadow-sm active:scale-[0.98]"
                 >
                   {payLoading ? 'Recording...' : 'Record Payment'}
                 </button>
@@ -571,35 +571,35 @@ export default function ClientDetailPage() {
         </div>
 
         {/* Payment History Table */}
-        <div className="bg-white border border-brand-border rounded-lg p-6 space-y-4">
-          <h2 className="text-xl font-semibold text-brand-dark border-b border-brand-border pb-3">
+        <div className="bg-white border border-zinc-200/80 rounded-2xl p-6 space-y-4 shadow-sm">
+          <h2 className="text-base font-semibold text-zinc-900 border-b border-zinc-100 pb-3">
             Payment History Ledger
           </h2>
 
           {client.payments.length === 0 ? (
-            <p className="text-sm text-brand-muted py-4">No payments recorded yet.</p>
+            <p className="text-xs text-zinc-400 py-4">No payments recorded yet.</p>
           ) : (
             <>
               {/* Desktop & Tablet Table */}
               <div className="hidden sm:block overflow-x-auto">
-                <table className="w-full text-left text-sm">
+                <table className="w-full text-left text-xs sm:text-sm">
                   <thead>
-                    <tr className="border-b border-brand-border text-xs font-semibold text-brand-secondary uppercase tracking-wider bg-brand-surface">
+                    <tr className="border-b border-zinc-100 text-[11px] font-semibold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
                       <th className="py-3 px-4">Date</th>
                       <th className="py-3 px-4">Description / Note</th>
                       <th className="py-3 px-4 text-right">Amount</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-brand-border">
+                  <tbody className="divide-y divide-zinc-100">
                     {client.payments.map((pay) => (
-                      <tr key={pay.id} className="hover:bg-brand-surface/50 transition-colors">
-                        <td className="py-3.5 px-4 font-medium text-brand-dark">
+                      <tr key={pay.id} className="hover:bg-zinc-50/60 transition-colors">
+                        <td className="py-3.5 px-4 font-medium text-zinc-900">
                           {new Date(pay.paymentDate).toLocaleDateString('en-IN')}
                         </td>
-                        <td className="py-3.5 px-4 text-brand-secondary">
+                        <td className="py-3.5 px-4 text-zinc-500 font-normal">
                           {pay.note || 'General Payment'}
                         </td>
-                        <td className="py-3.5 px-4 text-right font-bold text-brand-dark">
+                        <td className="py-3.5 px-4 text-right font-semibold text-zinc-900">
                           {formatCurrency(pay.amount)}
                         </td>
                       </tr>
@@ -609,14 +609,14 @@ export default function ClientDetailPage() {
               </div>
 
               {/* Mobile Cards */}
-              <div className="sm:hidden space-y-3">
+              <div className="sm:hidden space-y-2.5">
                 {client.payments.map((pay) => (
-                  <div key={pay.id} className="p-4 border border-brand-border rounded-md bg-brand-bg flex items-center justify-between">
+                  <div key={pay.id} className="p-3.5 border border-zinc-200/80 rounded-xl bg-zinc-50/50 flex items-center justify-between">
                     <div>
-                      <p className="text-xs text-brand-muted">{new Date(pay.paymentDate).toLocaleDateString('en-IN')}</p>
-                      <p className="text-xs font-medium text-brand-dark mt-0.5">{pay.note || 'General Payment'}</p>
+                      <p className="text-xs text-zinc-400">{new Date(pay.paymentDate).toLocaleDateString('en-IN')}</p>
+                      <p className="text-xs font-medium text-zinc-900 mt-0.5">{pay.note || 'General Payment'}</p>
                     </div>
-                    <span className="text-sm font-bold text-brand-dark">{formatCurrency(pay.amount)}</span>
+                    <span className="text-xs sm:text-sm font-semibold text-zinc-900">{formatCurrency(pay.amount)}</span>
                   </div>
                 ))}
               </div>

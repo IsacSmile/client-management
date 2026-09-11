@@ -9,14 +9,14 @@ module.exports = {
     extend: {
       colors: {
         brand: {
-          dark: '#212529',      // headings/primary text
-          nav: '#343a40',       // nav/primary buttons
-          secondary: '#495057', // secondary text
-          muted: '#6c757d',     // muted text
-          icon: '#adb5bd',      // icons/borders
-          border: '#dee2e6',    // borders/dividers
-          bg: '#f8f9fa',        // main bg
-          surface: '#e9ecef',   // secondary bg
+          dark: '#09090b',      // deep zinc headings/primary text
+          nav: '#09090b',       // sleek obsidian sidebar background
+          secondary: '#71717a', // clean secondary text
+          muted: '#a1a1aa',     // muted captions
+          icon: '#a1a1aa',      // icon color
+          border: '#e4e4e7',    // subtle 1px border
+          bg: '#fafafa',        // clean canvas background
+          surface: '#f4f4f5',   // secondary surface / header bg
         }
       },
       fontFamily: {

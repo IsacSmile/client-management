@@ -41,16 +41,17 @@ export default function LoginPage() {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-brand-bg px-4 py-12">
-      <div className="w-full max-w-md bg-white border border-brand-border rounded-lg p-8 space-y-6">
+    <div className="min-h-screen flex items-center justify-center bg-zinc-50/50 px-4 py-12">
+      <div className="w-full max-w-md bg-white border border-zinc-200/80 rounded-2xl p-8 space-y-6 shadow-sm">
         {/* Header */}
         <div className="text-center space-y-2">
-          <img src="/logo.png" alt="Faiz Dev & Co." className="h-12 w-auto mx-auto object-contain mb-1" />
-          <p className="text-sm text-brand-muted">Sign in to access your client management portal</p>
+          <img src="/logo.png" alt="Faiz Dev & Co." className="h-10 w-auto mx-auto object-contain mb-2" />
+          <h2 className="text-xl font-semibold text-zinc-900 tracking-tight">Client Portal</h2>
+          <p className="text-xs text-zinc-500 font-normal">Sign in to manage client projects and financial ledgers</p>
         </div>
 
         {error && (
-          <div className="p-3 border border-brand-border bg-brand-surface text-brand-dark rounded-md text-xs font-medium text-center">
+          <div className="p-3.5 border border-rose-200/80 bg-rose-50/60 text-rose-700 rounded-xl text-xs font-medium text-center">
             {error}
           </div>
         )}
@@ -58,35 +59,35 @@ export default function LoginPage() {
         {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-brand-dark mb-1.5">
-              Email Address <span className="text-brand-dark">*</span>
+            <label className="block text-xs font-medium text-zinc-700 mb-1.5">
+              Email Address <span className="text-zinc-900">*</span>
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-brand-muted absolute left-3 top-3" />
+              <Mail className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="demo@example.com"
-                className="w-full pl-9 pr-3 py-2 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none focus:border-brand-dark transition-colors"
+                className="w-full pl-9 pr-3.5 py-2.5 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-brand-dark mb-1.5">
-              Password <span className="text-brand-dark">*</span>
+            <label className="block text-xs font-medium text-zinc-700 mb-1.5">
+              Password <span className="text-zinc-900">*</span>
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-brand-muted absolute left-3 top-3" />
+              <Lock className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3" />
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-9 pr-3 py-2 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none focus:border-brand-dark transition-colors"
+                className="w-full pl-9 pr-3.5 py-2.5 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
               />
             </div>
           </div>
@@ -94,13 +95,11 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 px-4 bg-brand-nav hover:bg-brand-dark text-white font-medium text-sm rounded-md transition-colors border border-brand-dark focus:outline-none"
+            className="w-full py-2.5 px-4 bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-xs sm:text-sm rounded-xl transition-all shadow-sm active:scale-[0.98] focus:outline-none"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
-
-
       </div>
     </div>
   );

@@ -58,7 +58,7 @@ export function DeleteClientButton({
           type="button"
           onClick={() => setIsOpen(true)}
           title={`Delete ${clientName}`}
-          className="p-1.5 text-brand-muted hover:text-brand-dark hover:bg-brand-surface rounded-md transition-colors"
+          className="p-1.5 text-zinc-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all"
         >
           <Trash2 className="w-4 h-4" />
         </button>
@@ -66,9 +66,9 @@ export function DeleteClientButton({
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium text-white bg-brand-dark border border-brand-dark rounded-md hover:bg-brand-nav transition-colors"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-rose-600 bg-rose-50 border border-rose-200/80 rounded-xl hover:bg-rose-100 transition-all"
         >
-          <Trash2 className="w-4 h-4" />
+          <Trash2 className="w-3.5 h-3.5" />
           <span>Delete</span>
         </button>
       )}

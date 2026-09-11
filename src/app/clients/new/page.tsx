@@ -83,43 +83,43 @@ export default function NewClientPage() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-brand-bg">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-zinc-50/50">
       <Sidebar />
 
-      <main className="flex-1 p-4 md:p-8 max-w-4xl mx-auto w-full space-y-6">
+      <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto w-full space-y-6">
         {/* Back link & Header */}
-        <div className="space-y-2 border-b border-brand-border pb-4">
+        <div className="space-y-2 pb-2">
           <Link
             href="/clients"
-            className="inline-flex items-center gap-1 text-xs font-semibold text-brand-secondary hover:text-brand-dark transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-500 hover:text-zinc-900 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Clients</span>
           </Link>
-          <h1 className="text-3xl font-bold text-brand-dark tracking-tight">Add New Client</h1>
-          <p className="text-sm text-brand-secondary">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-zinc-900 tracking-tight">Add New Client</h1>
+          <p className="text-xs sm:text-sm text-zinc-500 font-normal">
             Enter client contact details and project financial information
           </p>
         </div>
 
         {error && (
-          <div className="p-3 border border-brand-border bg-brand-surface text-brand-dark rounded-md text-xs font-medium">
+          <div className="p-3.5 border border-rose-200/80 bg-rose-50/60 text-rose-700 rounded-xl text-xs font-medium">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Section 1: Client Information */}
-          <div className="bg-white border border-brand-border rounded-lg p-6 space-y-4">
-            <div className="flex items-center gap-2 border-b border-brand-border pb-3">
-              <User className="w-5 h-5 text-brand-dark" />
-              <h2 className="text-xl font-semibold text-brand-dark">Client Details</h2>
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-6 space-y-4 shadow-sm">
+            <div className="flex items-center gap-2 border-b border-zinc-100 pb-3">
+              <User className="w-4 h-4 text-zinc-700" />
+              <h2 className="text-base font-semibold text-zinc-900">Client Details</h2>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-brand-dark mb-1.5">
-                  Client Name <span className="text-brand-dark">*</span>
+                <label className="block text-xs font-medium text-zinc-700 mb-1.5">
+                  Client Name <span className="text-zinc-900">*</span>
                 </label>
                 <input
                   type="text"
@@ -127,26 +127,26 @@ export default function NewClientPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Acme Corp / Jane Smith"
-                  className="w-full px-3.5 py-2.5 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none focus:border-brand-dark transition-colors"
+                  className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-brand-dark mb-1.5">
+                  <label className="block text-xs font-medium text-zinc-700 mb-1.5">
                     Email Address
                   </label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="[email protected]"
-                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none focus:border-brand-dark transition-colors"
+                    placeholder="name@example.com"
+                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-dark mb-1.5">
+                  <label className="block text-xs font-medium text-zinc-700 mb-1.5">
                     Phone Number
                   </label>
                   <input
@@ -154,7 +154,7 @@ export default function NewClientPage() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+91 9876543210"
-                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none focus:border-brand-dark transition-colors"
+                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                   />
                 </div>
               </div>
@@ -162,16 +162,16 @@ export default function NewClientPage() {
           </div>
 
           {/* Section 2: Project Information */}
-          <div className="bg-white border border-brand-border rounded-lg p-6 space-y-4">
-            <div className="flex items-center gap-2 border-b border-brand-border pb-3">
-              <Briefcase className="w-5 h-5 text-brand-dark" />
-              <h2 className="text-xl font-semibold text-brand-dark">Project & Financial Setup</h2>
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-6 space-y-4 shadow-sm">
+            <div className="flex items-center gap-2 border-b border-zinc-100 pb-3">
+              <Briefcase className="w-4 h-4 text-zinc-700" />
+              <h2 className="text-base font-semibold text-zinc-900">Project & Financial Setup</h2>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-brand-dark mb-1.5">
-                  Project Name <span className="text-brand-dark">*</span>
+                <label className="block text-xs font-medium text-zinc-700 mb-1.5">
+                  Project Name <span className="text-zinc-900">*</span>
                 </label>
                 <input
                   type="text"
@@ -179,12 +179,12 @@ export default function NewClientPage() {
                   value={projectName}
                   onChange={(e) => setProjectName(e.target.value)}
                   placeholder="e.g. Corporate Website Redesign"
-                  className="w-full px-3.5 py-2.5 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none focus:border-brand-dark transition-colors"
+                  className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-brand-dark mb-1.5">
+                <label className="block text-xs font-medium text-zinc-700 mb-1.5">
                   Scope of Work
                 </label>
                 <textarea
@@ -192,14 +192,14 @@ export default function NewClientPage() {
                   value={scope}
                   onChange={(e) => setScope(e.target.value)}
                   placeholder="Describe key project deliverables, tech stack, and milestone expectations..."
-                  className="w-full px-3.5 py-2.5 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none focus:border-brand-dark transition-colors"
+                  className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-brand-dark mb-1.5">
-                    Total Amount (INR ₹) <span className="text-brand-dark">*</span>
+                  <label className="block text-xs font-medium text-zinc-700 mb-1.5">
+                    Total Amount (INR ₹) <span className="text-zinc-900">*</span>
                   </label>
                   <input
                     type="number"
@@ -209,12 +209,12 @@ export default function NewClientPage() {
                     value={totalAmount}
                     onChange={(e) => setTotalAmount(e.target.value)}
                     placeholder="150000"
-                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none focus:border-brand-dark transition-colors"
+                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-dark mb-1.5">
+                  <label className="block text-xs font-medium text-zinc-700 mb-1.5">
                     Upfront Payment (INR ₹)
                   </label>
                   <input
@@ -224,21 +224,21 @@ export default function NewClientPage() {
                     value={upfrontPayment}
                     onChange={(e) => setUpfrontPayment(e.target.value)}
                     placeholder="50000"
-                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none focus:border-brand-dark transition-colors"
+                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                   />
-                  <span className="text-[11px] text-brand-muted block mt-1">
+                  <span className="text-[11px] text-zinc-400 block mt-1">
                     Initial payment recorded on creation
                   </span>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-brand-dark mb-1.5">
+                  <label className="block text-xs font-medium text-zinc-700 mb-1.5">
                     Project Status
                   </label>
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value as ProjectStatus)}
-                    className="w-full px-3.5 py-2.5 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none focus:border-brand-dark transition-colors"
+                    className="w-full px-3.5 py-2.5 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all"
                   >
                     {(Object.keys(PROJECT_STATUS_LABELS) as ProjectStatus[]).map((key) => (
                       <option key={key} value={key}>
@@ -255,14 +255,14 @@ export default function NewClientPage() {
           <div className="flex items-center justify-end gap-3 pt-2">
             <Link
               href="/clients"
-              className="px-5 py-2.5 text-sm font-medium text-brand-dark bg-white border border-brand-border rounded-md hover:bg-brand-surface transition-colors"
+              className="px-5 py-2.5 text-xs sm:text-sm font-medium text-zinc-700 bg-white border border-zinc-200 rounded-xl hover:bg-zinc-50 transition-all shadow-sm"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2.5 text-sm font-medium text-white bg-brand-nav hover:bg-brand-dark border border-brand-dark rounded-md transition-colors shadow-none"
+              className="px-6 py-2.5 text-xs sm:text-sm font-medium text-white bg-zinc-900 hover:bg-zinc-800 rounded-xl transition-all shadow-sm active:scale-[0.98]"
             >
               {loading ? 'Creating Client...' : 'Save & Create Client'}
             </button>

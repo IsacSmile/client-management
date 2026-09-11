@@ -4,9 +4,25 @@
 
 @layer base {
   body {
-    background-color: #f8f9fa;
-    color: #212529;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #fafafa;
+    color: #09090b;
+    font-family: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
+}
+
+/* Custom minimal scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4d4d8;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1aa;
 }

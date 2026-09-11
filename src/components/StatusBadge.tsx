@@ -19,14 +19,23 @@ interface StatusBadgeProps {
 export function StatusBadge({ type, status }: StatusBadgeProps) {
   if (type === 'payment') {
     const payStatus = status as PaymentStatus;
-    let Icon = CircleDashed;
-    if (payStatus === 'Paid') Icon = CheckCheck;
-    if (payStatus === 'Partial Payment') Icon = CircleDot;
-    if (payStatus === 'Unpaid') Icon = AlertCircle;
+    let badgeStyle = 'bg-zinc-100 text-zinc-700 border-zinc-200/80';
+    let dotStyle = 'bg-zinc-500';
+
+    if (payStatus === 'Paid') {
+      badgeStyle = 'bg-emerald-50 text-emerald-700 border-emerald-200/70';
+      dotStyle = 'bg-emerald-500';
+    } else if (payStatus === 'Partial Payment') {
+      badgeStyle = 'bg-amber-50 text-amber-700 border-amber-200/70';
+      dotStyle = 'bg-amber-500';
+    } else if (payStatus === 'Unpaid') {
+      badgeStyle = 'bg-rose-50 text-rose-700 border-rose-200/70';
+      dotStyle = 'bg-rose-500';
+    }
 
     return (
-      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium border border-brand-border rounded-md bg-brand-surface text-brand-dark">
-        <Icon className="w-3.5 h-3.5 text-brand-dark" />
+      <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-semibold border rounded-full ${badgeStyle}`}>
+        <span className={`h-1.5 w-1.5 rounded-full ${dotStyle}`} />
         <span>{payStatus}</span>
       </span>
     );
@@ -36,16 +45,26 @@ export function StatusBadge({ type, status }: StatusBadgeProps) {
   const projStatus = status as ProjectStatus;
   const label = PROJECT_STATUS_LABELS[projStatus] || status;
 
-  let Icon = Clock;
-  if (projStatus === 'Completed') Icon = CheckCircle2;
-  if (projStatus === 'InProgress') Icon = CircleDot;
-  if (projStatus === 'NotStarted') Icon = CircleDashed;
-  if (projStatus === 'WaitingForClient') Icon = AlertCircle;
-  if (projStatus === 'OnHold') Icon = PauseCircle;
+  let badgeStyle = 'bg-zinc-100 text-zinc-700 border-zinc-200/80';
+  let dotStyle = 'bg-zinc-500';
+
+  if (projStatus === 'Completed') {
+    badgeStyle = 'bg-emerald-50 text-emerald-700 border-emerald-200/70';
+    dotStyle = 'bg-emerald-500';
+  } else if (projStatus === 'InProgress') {
+    badgeStyle = 'bg-sky-50 text-sky-700 border-sky-200/70';
+    dotStyle = 'bg-sky-500';
+  } else if (projStatus === 'WaitingForClient') {
+    badgeStyle = 'bg-amber-50 text-amber-700 border-amber-200/70';
+    dotStyle = 'bg-amber-500';
+  } else if (projStatus === 'OnHold') {
+    badgeStyle = 'bg-rose-50 text-rose-700 border-rose-200/70';
+    dotStyle = 'bg-rose-500';
+  }
 
   return (
-    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium border border-brand-border rounded-md bg-white text-brand-dark">
-      <Icon className="w-3.5 h-3.5 text-brand-muted" />
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-semibold border rounded-full ${badgeStyle}`}>
+      <span className={`h-1.5 w-1.5 rounded-full ${dotStyle}`} />
       <span>{label}</span>
     </span>
   );

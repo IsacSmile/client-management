@@ -21,14 +21,14 @@ export function Toast({ message, onClose, duration = 4000 }: ToastProps) {
   if (!message) return null;
 
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex items-center gap-3 px-4 py-3 bg-brand-dark text-white rounded-md border border-brand-border shadow-md transition-all animate-in fade-in slide-in-from-bottom-4 duration-200">
-      <CheckCircle2 className="w-5 h-5 text-brand-icon flex-shrink-0" />
-      <span className="text-sm font-medium">{message}</span>
+    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 bg-zinc-900 text-white rounded-2xl border border-zinc-800 shadow-xl shadow-zinc-950/20 text-xs font-semibold tracking-tight animate-in fade-in slide-in-from-bottom-4 duration-200">
+      <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+      <span>{message}</span>
       <button
         onClick={onClose}
-        className="p-1 rounded text-brand-icon hover:text-white transition-colors"
+        className="p-1 rounded-lg text-zinc-400 hover:text-white transition-colors"
       >
-        <X className="w-4 h-4" />
+        <X className="w-3.5 h-3.5" />
       </button>
     </div>
   );

@@ -82,36 +82,36 @@ export default function PaymentsPage() {
   });
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-brand-bg">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-zinc-50/50">
       <Sidebar />
 
-      <main className="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full space-y-8">
+      <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto w-full space-y-6">
         {/* Page Header */}
-        <div className="border-b border-brand-border pb-4">
-          <h1 className="text-3xl font-bold text-brand-dark tracking-tight">Payments Ledger</h1>
-          <p className="text-sm text-brand-secondary mt-1">Financial ledger of received payments and outstanding dues</p>
+        <div className="pb-2">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-zinc-900 tracking-tight">Payments Ledger</h1>
+          <p className="text-xs sm:text-sm text-zinc-500 mt-1 font-normal">Financial ledger of received payments and outstanding dues</p>
         </div>
 
         {/* Top Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-white border border-brand-border rounded-lg p-5 space-y-2">
-            <div className="flex items-center justify-between text-brand-secondary">
-              <span className="text-xs font-semibold uppercase tracking-wider">Total Payment Received</span>
-              <div className="p-2 bg-brand-surface rounded-md border border-brand-border">
-                <IndianRupee className="w-4 h-4 text-brand-dark" />
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-1.5 shadow-sm">
+            <div className="flex items-center justify-between text-zinc-500">
+              <span className="text-[11px] font-semibold uppercase tracking-wider">Total Payment Received</span>
+              <div className="p-2 bg-zinc-100/80 rounded-xl border border-zinc-200/60">
+                <IndianRupee className="w-4 h-4 text-zinc-700" />
               </div>
             </div>
-            <p className="text-3xl font-bold text-brand-dark">{formatCurrency(totalReceived)}</p>
+            <p className="text-2xl sm:text-3xl font-semibold text-zinc-900 tracking-tight">{formatCurrency(totalReceived)}</p>
           </div>
 
-          <div className="bg-white border border-brand-border rounded-lg p-5 space-y-2">
-            <div className="flex items-center justify-between text-brand-secondary">
-              <span className="text-xs font-semibold uppercase tracking-wider">Total Outstanding Due</span>
-              <div className="p-2 bg-brand-surface rounded-md border border-brand-border">
-                <Wallet className="w-4 h-4 text-brand-dark" />
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-1.5 shadow-sm">
+            <div className="flex items-center justify-between text-zinc-500">
+              <span className="text-[11px] font-semibold uppercase tracking-wider">Total Outstanding Due</span>
+              <div className="p-2 bg-zinc-100/80 rounded-xl border border-zinc-200/60">
+                <Wallet className="w-4 h-4 text-zinc-700" />
               </div>
             </div>
-            <p className="text-3xl font-bold text-brand-dark">{formatCurrency(totalDue)}</p>
+            <p className="text-2xl sm:text-3xl font-semibold text-zinc-900 tracking-tight">{formatCurrency(totalDue)}</p>
           </div>
         </div>
 
@@ -123,10 +123,10 @@ export default function PaymentsPage() {
               <button
                 key={tab}
                 onClick={() => setFilter(tab)}
-                className={`px-3.5 py-1.5 text-xs font-semibold rounded-md border transition-colors whitespace-nowrap ${
+                className={`px-3.5 py-1.5 text-xs font-medium rounded-xl border transition-all whitespace-nowrap ${
                   filter === tab
-                    ? 'bg-brand-dark text-white border-brand-dark'
-                    : 'bg-white text-brand-dark border-brand-border hover:bg-brand-surface'
+                    ? 'bg-zinc-900 text-white border-zinc-900 shadow-sm'
+                    : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-50'
                 }`}
               >
                 {tab}
@@ -136,34 +136,34 @@ export default function PaymentsPage() {
 
           {/* Search Bar */}
           <div className="relative w-full sm:w-72">
-            <Search className="w-4 h-4 text-brand-muted absolute left-3 top-3" />
+            <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search client or project..."
-              className="w-full pl-9 pr-4 py-2 text-sm bg-white border border-brand-border rounded-md text-brand-dark focus:outline-none focus:border-brand-dark transition-colors"
+              className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm bg-white border border-zinc-200 rounded-xl text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 focus:ring-2 focus:ring-zinc-900/5 transition-all shadow-sm"
             />
           </div>
         </div>
 
         {/* Payment Ledger Table */}
         {loading ? (
-          <div className="bg-white border border-brand-border rounded-lg p-12 text-center text-brand-muted text-sm">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-12 text-center text-zinc-400 text-xs sm:text-sm shadow-sm">
             Loading payments ledger...
           </div>
         ) : filteredRows.length === 0 ? (
-          <div className="bg-white border border-brand-border rounded-lg p-12 text-center text-brand-muted text-sm space-y-2">
-            <CreditCard className="w-8 h-8 text-brand-muted mx-auto" />
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-12 text-center text-zinc-400 text-xs sm:text-sm space-y-2 shadow-sm">
+            <CreditCard className="w-8 h-8 text-zinc-300 mx-auto" />
             <p>No payment entries match your filter criteria.</p>
           </div>
         ) : (
-          <div className="bg-white border border-brand-border rounded-lg overflow-hidden">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl overflow-hidden shadow-sm">
             {/* Desktop Table */}
             <div className="hidden sm:block overflow-x-auto">
-              <table className="w-full text-left text-sm">
+              <table className="w-full text-left text-xs sm:text-sm">
                 <thead>
-                  <tr className="border-b border-brand-border text-xs font-semibold text-brand-secondary uppercase tracking-wider bg-brand-surface">
+                  <tr className="border-b border-zinc-100 text-[11px] font-semibold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
                     <th className="py-3.5 px-4">Client</th>
                     <th className="py-3.5 px-4">Project</th>
                     <th className="py-3.5 px-4">Total Amount</th>
@@ -172,19 +172,19 @@ export default function PaymentsPage() {
                     <th className="py-3.5 px-4">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-brand-border">
+                <tbody className="divide-y divide-zinc-100">
                   {filteredRows.map((r, idx) => (
-                    <tr key={idx} className="hover:bg-brand-surface/50 transition-colors">
-                      <td className="py-4 px-4 font-semibold text-brand-dark">
-                        <Link href={`/clients/${r.clientId}`} className="hover:underline">
+                    <tr key={idx} className="hover:bg-zinc-50/60 transition-colors">
+                      <td className="py-3.5 px-4 font-semibold text-zinc-900">
+                        <Link href={`/clients/${r.clientId}`} className="hover:text-zinc-600 transition-colors">
                           {r.clientName}
                         </Link>
                       </td>
-                      <td className="py-4 px-4 text-brand-secondary">{r.projectName}</td>
-                      <td className="py-4 px-4 text-brand-dark">{formatCurrency(r.totalAmount)}</td>
-                      <td className="py-4 px-4 text-brand-dark font-medium">{formatCurrency(r.paid)}</td>
-                      <td className="py-4 px-4 text-brand-dark font-semibold">{formatCurrency(r.due)}</td>
-                      <td className="py-4 px-4">
+                      <td className="py-3.5 px-4 text-zinc-600 font-normal">{r.projectName}</td>
+                      <td className="py-3.5 px-4 text-zinc-700 font-medium">{formatCurrency(r.totalAmount)}</td>
+                      <td className="py-3.5 px-4 text-zinc-700 font-medium">{formatCurrency(r.paid)}</td>
+                      <td className="py-3.5 px-4 text-zinc-900 font-semibold">{formatCurrency(r.due)}</td>
+                      <td className="py-3.5 px-4">
                         <StatusBadge type="payment" status={r.status} />
                       </td>
                     </tr>
@@ -194,31 +194,31 @@ export default function PaymentsPage() {
             </div>
 
             {/* Mobile Collapsed Cards (<640px) */}
-            <div className="sm:hidden divide-y divide-brand-border">
+            <div className="sm:hidden divide-y divide-zinc-100">
               {filteredRows.map((r, idx) => (
                 <div key={idx} className="p-4 space-y-3">
                   <div className="flex items-start justify-between">
                     <div>
-                      <Link href={`/clients/${r.clientId}`} className="font-bold text-brand-dark hover:underline text-base">
+                      <Link href={`/clients/${r.clientId}`} className="font-bold text-zinc-900 hover:underline text-base">
                         {r.clientName}
                       </Link>
-                      <p className="text-xs text-brand-secondary">Project: {r.projectName}</p>
+                      <p className="text-xs text-zinc-400">Project: {r.projectName}</p>
                     </div>
                     <StatusBadge type="payment" status={r.status} />
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2 text-xs pt-2 border-t border-brand-border text-center">
-                    <div className="p-2 bg-brand-surface rounded border border-brand-border">
-                      <span className="text-brand-muted block text-[10px]">TOTAL</span>
-                      <span className="font-semibold text-brand-dark">{formatCurrency(r.totalAmount)}</span>
+                  <div className="grid grid-cols-3 gap-2 text-xs pt-2 border-t border-zinc-100 text-center">
+                    <div className="p-2 bg-zinc-50/80 rounded-xl border border-zinc-100">
+                      <span className="text-zinc-400 block text-[10px]">TOTAL</span>
+                      <span className="font-semibold text-zinc-900">{formatCurrency(r.totalAmount)}</span>
                     </div>
-                    <div className="p-2 bg-brand-surface rounded border border-brand-border">
-                      <span className="text-brand-muted block text-[10px]">PAID</span>
-                      <span className="font-semibold text-brand-dark">{formatCurrency(r.paid)}</span>
+                    <div className="p-2 bg-zinc-50/80 rounded-xl border border-zinc-100">
+                      <span className="text-zinc-400 block text-[10px]">PAID</span>
+                      <span className="font-semibold text-zinc-900">{formatCurrency(r.paid)}</span>
                     </div>
-                    <div className="p-2 bg-brand-surface rounded border border-brand-border">
-                      <span className="text-brand-muted block text-[10px]">DUE</span>
-                      <span className="font-semibold text-brand-dark">{formatCurrency(r.due)}</span>
+                    <div className="p-2 bg-zinc-50/80 rounded-xl border border-zinc-100">
+                      <span className="text-zinc-400 block text-[10px]">DUE</span>
+                      <span className="font-semibold text-zinc-900">{formatCurrency(r.due)}</span>
                     </div>
                   </div>
                 </div>
