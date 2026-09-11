@@ -13,13 +13,11 @@ import {
   isSameMonth,
   isSameDay,
   isWithinInterval,
-  isAfter,
   isBefore,
   startOfDay,
-  endOfDay,
 } from 'date-fns';
 import { DatePreset, getPresetLabel } from '@/lib/date-filters';
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Check, X, Clock } from 'lucide-react';
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 
 interface CustomDateRangePickerProps {
   preset: DatePreset;
@@ -39,7 +37,7 @@ export function CustomDateRangePicker({
   const [isOpen, setIsOpen] = useState(false);
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   
-  // Pending selected dates inside the custom popover
+  // Pending selected dates inside popover
   const [tempFrom, setTempFrom] = useState<Date | null>(
     customFrom ? new Date(customFrom) : null
   );
@@ -78,7 +76,6 @@ export function CustomDateRangePicker({
     const targetDay = startOfDay(day);
 
     if (!tempFrom || (tempFrom && tempTo)) {
-      // Start new selection range
       setTempFrom(targetDay);
       setTempTo(null);
     } else if (tempFrom && !tempTo) {
@@ -104,7 +101,7 @@ export function CustomDateRangePicker({
     }
   };
 
-  // Button Display Label
+  // Trigger Button Label
   let displayLabel = getPresetLabel(preset);
   if (preset === 'custom' && customFrom && customTo) {
     try {
@@ -129,12 +126,12 @@ export function CustomDateRangePicker({
         <span className="text-[10px] text-zinc-400">▼</span>
       </button>
 
-      {/* Popover Custom Calendar */}
+      {/* Popover Custom Calendar (Right Aligned to Prevent Off-Screen Clipping) */}
       {isOpen && (
-        <div className="absolute right-0 sm:left-0 sm:right-auto mt-2 w-80 sm:w-96 bg-white border border-zinc-200/90 rounded-2xl shadow-xl z-50 p-4 space-y-4 animate-in fade-in zoom-in-95 duration-150">
+        <div className="absolute right-0 top-full mt-2 w-[340px] max-w-[calc(100vw-2rem)] bg-white border border-zinc-200/90 rounded-2xl shadow-2xl z-50 p-4 space-y-3 animate-in fade-in zoom-in-95 duration-150">
           
-          {/* Preset Buttons Bar */}
-          <div className="flex items-center gap-1 bg-zinc-100/80 p-1 rounded-xl border border-zinc-200/60 overflow-x-auto">
+          {/* Preset Buttons Grid */}
+          <div className="flex flex-wrap items-center gap-1 bg-zinc-100/80 p-1 rounded-xl border border-zinc-200/60">
             {(['all_time', 'this_month', 'last_month', 'last_3_months', 'custom'] as const).map((pKey) => (
               <button
                 key={pKey}
@@ -144,7 +141,7 @@ export function CustomDateRangePicker({
                     setIsOpen(false);
                   }
                 }}
-                className={`px-2.5 py-1 text-[11px] font-medium rounded-lg transition-all whitespace-nowrap ${
+                className={`px-2.5 py-1 text-[11px] font-medium rounded-lg transition-all ${
                   preset === pKey
                     ? 'bg-white text-zinc-900 shadow-xs font-semibold'
                     : 'text-zinc-600 hover:text-zinc-900'
@@ -156,7 +153,7 @@ export function CustomDateRangePicker({
           </div>
 
           {/* Month Navigation Header */}
-          <div className="flex items-center justify-between px-1">
+          <div className="flex items-center justify-between px-1 pt-1">
             <h4 className="text-xs font-bold text-zinc-900">
               {format(currentMonth, 'MMMM yyyy')}
             </h4>
@@ -233,7 +230,7 @@ export function CustomDateRangePicker({
           </div>
 
           {/* Bottom Custom Range Footer & Apply Controls */}
-          <div className="pt-3 border-t border-zinc-100 flex items-center justify-between">
+          <div className="pt-2.5 border-t border-zinc-100 flex items-center justify-between">
             <div className="text-[11px] text-zinc-500">
               {tempFrom && tempTo ? (
                 <span>
