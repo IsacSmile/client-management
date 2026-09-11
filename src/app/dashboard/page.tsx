@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma';
 import { getSession } from '@/lib/auth';
 import { DashboardView } from '@/components/DashboardView';
 
+import DashboardLoading from './loading';
+
 export const revalidate = 0;
 
 export default async function DashboardPage() {
@@ -32,13 +34,7 @@ export default async function DashboardPage() {
   });
 
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen bg-zinc-50 flex items-center justify-center text-zinc-400 text-sm">
-          Loading dashboard...
-        </div>
-      }
-    >
+    <Suspense fallback={<DashboardLoading />}>
       <DashboardView
         initialClients={JSON.parse(JSON.stringify(clients))}
         initialProjects={JSON.parse(JSON.stringify(projects))}

@@ -7,6 +7,7 @@ import { StatusBadge } from '@/components/StatusBadge';
 import { DeleteClientButton } from '@/components/DeleteClientButton';
 import { calculateTotalPaid, calculateRemaining, formatCurrency, getInitials } from '@/lib/finance';
 import { Briefcase, Search, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { TableSkeleton } from '@/components/skeletons';
 
 interface ProjectItem {
   id: string;
@@ -119,9 +120,7 @@ export default function ProjectsPage() {
 
         {/* Projects List */}
         {loading ? (
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-12 text-center text-zinc-400 text-xs sm:text-sm shadow-sm">
-            Loading projects...
-          </div>
+          <TableSkeleton rows={5} cols={7} />
         ) : filteredProjects.length === 0 ? (
           <div className="bg-white border border-zinc-200/80 rounded-2xl p-12 text-center text-zinc-400 text-xs sm:text-sm space-y-3 shadow-sm">
             <Briefcase className="w-8 h-8 text-zinc-300 mx-auto" />

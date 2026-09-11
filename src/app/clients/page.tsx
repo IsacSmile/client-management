@@ -7,6 +7,7 @@ import { StatusBadge } from '@/components/StatusBadge';
 import { DeleteClientButton } from '@/components/DeleteClientButton';
 import { calculateTotalPaid, calculateRemaining, getPaymentStatus, formatCurrency, getInitials } from '@/lib/finance';
 import { Plus, Search, UserPlus, FileText, Briefcase, Users, IndianRupee } from 'lucide-react';
+import { TableSkeleton } from '@/components/skeletons';
 
 interface ClientWithProject {
   id: string;
@@ -124,9 +125,7 @@ export default function ClientsPage() {
 
         {/* Clients Table / Cards / Empty State */}
         {loading ? (
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-12 text-center text-zinc-400 text-xs sm:text-sm shadow-sm">
-            Loading clients...
-          </div>
+          <TableSkeleton rows={5} cols={7} />
         ) : clients.length === 0 ? (
           /* Empty State when zero clients exist */
           <div className="bg-white border border-zinc-200/80 rounded-2xl p-12 text-center space-y-4 shadow-sm">

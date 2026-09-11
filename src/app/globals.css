@@ -32,3 +32,17 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #a1a1aa;
 }
+
+@keyframes skeleton-pulse {
+  0%, 100% {
+    background-color: #e9ecef;
+  }
+  50% {
+    background-color: #dee2e6;
+  }
+}
+
+.animate-skeleton {
+  animation: skeleton-pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  background-color: #e9ecef;
+}

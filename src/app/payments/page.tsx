@@ -13,6 +13,7 @@ import {
 import { DatePreset, getPresetLabel } from '@/lib/date-filters';
 import { CustomDateRangePicker } from '@/components/CustomDateRangePicker';
 import { CreditCard, Search, IndianRupee, Wallet, Calendar, AlertCircle, Briefcase } from 'lucide-react';
+import PaymentsLoading from './loading';
 
 interface PaymentRow {
   clientId: string;
@@ -306,11 +307,7 @@ function PaymentsPageContent() {
 
 export default function PaymentsPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-zinc-50/50 flex items-center justify-center text-zinc-400 text-sm">
-        Loading payments ledger...
-      </div>
-    }>
+    <Suspense fallback={<PaymentsLoading />}>
       <PaymentsPageContent />
     </Suspense>
   );
