@@ -47,10 +47,12 @@ export function Sidebar({ userName = 'Admin', userEmail = 'demo@example.com' }: 
     <>
       {/* Mobile Top Navigation */}
       <header className="lg:hidden flex items-center justify-between px-4 py-3 bg-brand-nav text-white border-b border-brand-secondary">
-        <div className="flex items-center gap-2">
-          <UserCheck className="w-5 h-5 text-brand-icon" />
-          <span className="font-semibold text-lg tracking-wide">Client Mgmt</span>
-        </div>
+        <Link href="/dashboard" className="flex items-center gap-2.5">
+          <div className="bg-white px-2 py-1 rounded-md flex items-center justify-center">
+            <img src="/logo.png" alt="Faiz Dev & Co." className="h-6 w-auto object-contain" />
+          </div>
+          <span className="font-bold text-base tracking-tight text-white">Faiz Dev & Co.</span>
+        </Link>
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="p-1.5 rounded-md hover:bg-brand-secondary text-brand-icon focus:outline-none"
@@ -101,15 +103,15 @@ export function Sidebar({ userName = 'Admin', userEmail = 'demo@example.com' }: 
       {/* Desktop & Tablet Sidebar */}
       <aside className="hidden lg:flex flex-col w-64 bg-brand-nav text-white min-h-screen border-r border-brand-secondary flex-shrink-0">
         {/* Header */}
-        <div className="p-6 border-b border-brand-secondary flex items-center gap-3">
-          <div className="p-2 rounded-md bg-brand-secondary text-white">
-            <UserCheck className="w-5 h-5 text-brand-icon" />
+        <Link href="/dashboard" className="p-5 border-b border-brand-secondary flex items-center gap-3 hover:bg-brand-secondary/40 transition-colors">
+          <div className="bg-white px-2.5 py-1.5 rounded-md flex items-center justify-center flex-shrink-0">
+            <img src="/logo.png" alt="Faiz Dev & Co." className="h-8 w-auto object-contain" />
           </div>
-          <div>
-            <h1 className="font-bold text-base tracking-wide text-white">Client Mgmt</h1>
-            <p className="text-xs text-brand-icon">Internal System</p>
+          <div className="min-w-0">
+            <h1 className="font-bold text-sm tracking-tight text-white truncate">Faiz Dev & Co.</h1>
+            <p className="text-xs text-brand-icon truncate">Client Portal</p>
           </div>
-        </div>
+        </Link>
 
         {/* Navigation Links */}
         <nav className="flex-1 px-4 py-6 space-y-1.5">

@@ -45,11 +45,11 @@ export default function LoginPage() {
       <div className="w-full max-w-md bg-white border border-brand-border rounded-lg p-8 space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <div className="inline-flex p-3 rounded-full bg-brand-surface border border-brand-border mb-1">
-            <UserCheck className="w-6 h-6 text-brand-dark" />
+          <div className="inline-flex p-3 rounded-xl bg-brand-surface border border-brand-border mb-1">
+            <img src="/logo.png" alt="Faiz Dev & Co." className="h-10 w-auto object-contain" />
           </div>
-          <h1 className="text-2xl font-bold text-brand-dark tracking-tight">Client Management</h1>
-          <p className="text-sm text-brand-muted">Sign in to access your internal dashboard</p>
+          <h1 className="text-2xl font-bold text-brand-dark tracking-tight">Faiz Dev & Co.</h1>
+          <p className="text-sm text-brand-muted">Sign in to access your client management portal</p>
         </div>
 
         {error && (

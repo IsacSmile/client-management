@@ -2,8 +2,11 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Client Management System',
-  description: 'Internal Client & Project Management Web Application',
+  title: 'Faiz Dev & Co. | Client Management',
+  description: 'Internal Client & Project Management Web Application for Faiz Dev & Co.',
+  icons: {
+    icon: '/logo.png',
+  },
 };
 
 export default function RootLayout({
