@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
@@ -8,11 +8,18 @@ const inter = Inter({
   display: 'swap',
 });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export const metadata: Metadata = {
   title: 'Faiz Dev & Co. | Client Management',
   description: 'Internal Client & Project Management Web Application for Faiz Dev & Co.',
   icons: {
-    icon: '/logo.png',
+    icon: '/logo.svg',
   },
 };
 

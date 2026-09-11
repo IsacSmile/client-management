@@ -3,11 +3,13 @@
 @import "tailwindcss/utilities";
 
 @layer base {
-  body {
+  html, body {
+    touch-action: pan-x pan-y;
     background-color: #fafafa;
     color: #09090b;
     font-family: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
   }
 }
 
