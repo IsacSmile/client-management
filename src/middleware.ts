@@ -11,11 +11,12 @@ const COOKIE_NAME = 'client_session';
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Exclude static assets, next internal routes, and login api
+  // Exclude static assets, public images, next internal routes, and login api
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api/auth/login') ||
-    pathname === '/favicon.ico'
+    pathname === '/favicon.ico' ||
+    /\.(png|svg|jpg|jpeg|webp|ico)$/i.test(pathname)
   ) {
     return NextResponse.next();
   }
@@ -54,5 +55,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
 };
