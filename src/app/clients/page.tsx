@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { Sidebar } from '@/components/Sidebar';
 import { StatusBadge } from '@/components/StatusBadge';
 import { DeleteClientButton } from '@/components/DeleteClientButton';
-import { calculateTotalPaid, calculateRemaining, getPaymentStatus, formatCurrency } from '@/lib/finance';
-import { Plus, Search, UserPlus, FileText } from 'lucide-react';
+import { calculateTotalPaid, calculateRemaining, getPaymentStatus, formatCurrency, getInitials } from '@/lib/finance';
+import { Plus, Search, UserPlus, FileText, Briefcase } from 'lucide-react';
 
 interface ClientWithProject {
   id: string;
@@ -128,7 +128,7 @@ export default function ClientsPage() {
             <div className="hidden sm:block overflow-x-auto">
               <table className="w-full text-left text-xs sm:text-sm">
                 <thead>
-                  <tr className="border-b border-zinc-100 text-[11px] font-semibold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
+                  <tr className="border-b border-zinc-100 text-[11px] font-bold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
                     <th className="py-3 px-4">Client</th>
                     <th className="py-3 px-4">Project</th>
                     <th className="py-3 px-4">Scope</th>
@@ -149,10 +149,17 @@ export default function ClientsPage() {
                     return (
                       <tr key={c.id} className="hover:bg-zinc-50/60 transition-colors">
                         <td className="py-3.5 px-4">
-                          <Link href={`/clients/${c.id}`} className="font-semibold text-zinc-900 hover:text-zinc-600 transition-colors block">
-                            {c.name}
-                          </Link>
-                          <span className="text-xs text-zinc-400 block font-normal">{c.email || c.phone || 'No contact'}</span>
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white text-xs font-bold flex items-center justify-center shrink-0 shadow-xs">
+                              {getInitials(c.name)}
+                            </div>
+                            <div>
+                              <Link href={`/clients/${c.id}`} className="font-semibold text-zinc-900 hover:text-zinc-600 transition-colors block">
+                                {c.name}
+                              </Link>
+                              <span className="text-xs text-zinc-400 block font-normal">{c.email || c.phone || 'No contact'}</span>
+                            </div>
+                          </div>
                         </td>
                         <td className="py-3.5 px-4 text-zinc-900 font-medium">
                           {mainProject ? mainProject.name : 'N/A'}
@@ -161,7 +168,7 @@ export default function ClientsPage() {
                           {mainProject ? mainProject.scope || '—' : '—'}
                         </td>
                         <td className="py-3.5 px-4 text-zinc-700 font-medium">{formatCurrency(paid)}</td>
-                        <td className="py-3.5 px-4 text-zinc-900 font-semibold">{formatCurrency(remaining)}</td>
+                        <td className={`py-3.5 px-4 font-semibold ${remaining > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(remaining)}</td>
                         <td className="py-3.5 px-4">
                           <StatusBadge type="payment" status={payStatus} />
                         </td>
@@ -175,8 +182,8 @@ export default function ClientsPage() {
               </table>
             </div>
 
-            {/* Mobile Collapsed Cards (<640px) */}
-            <div className="sm:hidden divide-y divide-zinc-100">
+            {/* Redesigned Mobile Collapsed Cards (<640px) */}
+            <div className="sm:hidden p-3 space-y-3 bg-zinc-50/40">
               {filteredClients.map((c) => {
                 const mainProject = c.projects[0];
                 const totalAmount = mainProject ? mainProject.totalAmount : 0;
@@ -185,34 +192,48 @@ export default function ClientsPage() {
                 const payStatus = mainProject ? getPaymentStatus(totalAmount, paid) : 'Unpaid';
 
                 return (
-                  <div key={c.id} className="p-4 space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <Link href={`/clients/${c.id}`} className="font-bold text-zinc-900 hover:underline text-base">
-                          {c.name}
-                        </Link>
-                        <p className="text-xs text-zinc-400">{c.email || c.phone || 'No contact'}</p>
+                  <div key={c.id} className="p-4 border border-zinc-200/80 rounded-2xl bg-white shadow-xs hover:shadow-md transition-all space-y-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-10 h-10 rounded-xl bg-zinc-900 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs border border-zinc-800">
+                          {getInitials(c.name)}
+                        </div>
+                        <div className="min-w-0">
+                          <Link href={`/clients/${c.id}`} className="font-bold text-zinc-900 hover:text-zinc-600 transition-colors text-sm truncate block">
+                            {c.name}
+                          </Link>
+                          <p className="text-xs text-zinc-400 truncate">{c.email || c.phone || 'No contact'}</p>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 shrink-0">
                         <StatusBadge type="payment" status={payStatus} />
                         <DeleteClientButton clientId={c.id} clientName={c.name} onSuccess={fetchClients} />
                       </div>
                     </div>
 
-                    <div className="text-xs text-zinc-600 space-y-1">
-                      <p>
-                        <strong className="text-zinc-900">Project:</strong> {mainProject ? mainProject.name : 'N/A'}
-                      </p>
-                      {mainProject?.scope && (
-                        <p className="line-clamp-2">
-                          <strong className="text-zinc-900">Scope:</strong> {mainProject.scope}
-                        </p>
-                      )}
-                    </div>
+                    {mainProject && (
+                      <div className="flex items-center gap-1.5">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100/90 text-zinc-700 text-xs font-medium border border-zinc-200/60">
+                          <Briefcase className="w-3.5 h-3.5 text-zinc-400" />
+                          <span>{mainProject.name}</span>
+                        </span>
+                      </div>
+                    )}
 
-                    <div className="flex items-center justify-between text-xs pt-2 border-t border-zinc-100 text-zinc-900 font-medium">
-                      <span>Paid: {formatCurrency(paid)}</span>
-                      <span>Remaining: {formatCurrency(remaining)}</span>
+                    {/* 3-Column Financial Grid */}
+                    <div className="grid grid-cols-3 gap-2 p-2.5 bg-zinc-50/80 rounded-xl border border-zinc-200/60 text-center">
+                      <div>
+                        <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider block">TOTAL</span>
+                        <span className="text-xs font-semibold text-zinc-900">{formatCurrency(totalAmount)}</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-bold text-emerald-600/90 uppercase tracking-wider block">PAID</span>
+                        <span className="text-xs font-semibold text-emerald-700">{formatCurrency(paid)}</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-bold text-rose-500/90 uppercase tracking-wider block">DUE</span>
+                        <span className={`text-xs font-bold ${remaining > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(remaining)}</span>
+                      </div>
                     </div>
                   </div>
                 );

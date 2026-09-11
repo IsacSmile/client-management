@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Sidebar } from '@/components/Sidebar';
 import { StatusBadge } from '@/components/StatusBadge';
 import { DeleteClientButton } from '@/components/DeleteClientButton';
-import { calculateTotalPaid, calculateRemaining, formatCurrency } from '@/lib/finance';
+import { calculateTotalPaid, calculateRemaining, formatCurrency, getInitials } from '@/lib/finance';
 import { Briefcase, Search, ArrowRight } from 'lucide-react';
 
 interface ProjectItem {
@@ -107,10 +107,11 @@ export default function ProjectsPage() {
             <div className="hidden sm:block overflow-x-auto">
               <table className="w-full text-left text-xs sm:text-sm">
                 <thead>
-                  <tr className="border-b border-zinc-100 text-[11px] font-semibold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
+                  <tr className="border-b border-zinc-100 text-[11px] font-bold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
                     <th className="py-3.5 px-4">Project</th>
                     <th className="py-3.5 px-4">Client</th>
                     <th className="py-3.5 px-4">Status</th>
+                    <th className="py-3.5 px-4">Total Value</th>
                     <th className="py-3.5 px-4">Total Paid</th>
                     <th className="py-3.5 px-4">Remaining</th>
                     <th className="py-3.5 px-4 text-right">Action</th>
@@ -131,16 +132,22 @@ export default function ProjectsPage() {
                             Progress: {p.progress}%
                           </span>
                         </td>
-                        <td className="py-3.5 px-4 text-zinc-700 font-medium">
-                          <Link href={`/clients/${p.client.id}`} className="hover:text-zinc-600 transition-colors">
-                            {p.client.name}
-                          </Link>
+                        <td className="py-3.5 px-4">
+                          <div className="flex items-center gap-2.5">
+                            <div className="w-7 h-7 rounded-lg bg-zinc-900 text-white text-[11px] font-bold flex items-center justify-center shrink-0 shadow-xs">
+                              {getInitials(p.client.name)}
+                            </div>
+                            <Link href={`/clients/${p.client.id}`} className="font-semibold text-zinc-900 hover:underline">
+                              {p.client.name}
+                            </Link>
+                          </div>
                         </td>
                         <td className="py-3.5 px-4">
                           <StatusBadge type="project" status={p.status} />
                         </td>
+                        <td className="py-3.5 px-4 text-zinc-900 font-medium">{formatCurrency(p.totalAmount)}</td>
                         <td className="py-3.5 px-4 text-zinc-700 font-medium">{formatCurrency(paid)}</td>
-                        <td className="py-3.5 px-4 text-zinc-900 font-semibold">{formatCurrency(remaining)}</td>
+                        <td className={`py-3.5 px-4 font-semibold ${remaining > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(remaining)}</td>
                         <td className="py-3.5 px-4 text-right">
                           <div className="flex items-center justify-end gap-2">
                             <Link
@@ -160,36 +167,53 @@ export default function ProjectsPage() {
               </table>
             </div>
 
-            {/* Mobile Collapsed Cards (<640px) */}
-            <div className="sm:hidden divide-y divide-zinc-100">
+            {/* Redesigned Mobile Collapsed Cards (<640px) */}
+            <div className="sm:hidden p-3 space-y-3 bg-zinc-50/40">
               {filteredProjects.map((p) => {
                 const paid = calculateTotalPaid(p.payments);
                 const remaining = calculateRemaining(p.totalAmount, paid);
 
                 return (
-                  <div key={p.id} className="p-4 space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <Link href={`/clients/${p.client.id}`} className="font-bold text-zinc-900 hover:underline text-base">
-                          {p.name}
-                        </Link>
-                        <p className="text-xs text-zinc-400">Client: {p.client.name}</p>
+                  <div key={p.id} className="p-4 border border-zinc-200/80 rounded-2xl bg-white shadow-xs hover:shadow-md transition-all space-y-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-10 h-10 rounded-xl bg-zinc-900 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs border border-zinc-800">
+                          {getInitials(p.client.name)}
+                        </div>
+                        <div className="min-w-0">
+                          <Link href={`/clients/${p.client.id}`} className="font-bold text-zinc-900 hover:text-zinc-600 transition-colors text-sm truncate block">
+                            {p.name}
+                          </Link>
+                          <p className="text-xs text-zinc-500 truncate mt-0.5">Client: {p.client.name}</p>
+                        </div>
                       </div>
                       <StatusBadge type="project" status={p.status} />
                     </div>
 
-                    <div className="flex items-center justify-between text-xs text-zinc-900 pt-2 border-t border-zinc-100 font-medium">
-                      <span>Total Paid: {formatCurrency(paid)}</span>
-                      <span>Remaining: {formatCurrency(remaining)}</span>
+                    {/* 3-Column Financial Grid */}
+                    <div className="grid grid-cols-3 gap-2 p-2.5 bg-zinc-50/80 rounded-xl border border-zinc-200/60 text-center">
+                      <div>
+                        <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider block">TOTAL</span>
+                        <span className="text-xs font-semibold text-zinc-900">{formatCurrency(p.totalAmount)}</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-bold text-emerald-600/90 uppercase tracking-wider block">PAID</span>
+                        <span className="text-xs font-semibold text-emerald-700">{formatCurrency(paid)}</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-bold text-rose-500/90 uppercase tracking-wider block">DUE</span>
+                        <span className={`text-xs font-bold ${remaining > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(remaining)}</span>
+                      </div>
                     </div>
 
-                    <div className="pt-1 text-right">
+                    <div className="pt-1 flex items-center justify-between border-t border-zinc-100">
+                      <span className="text-xs text-zinc-400">Progress: {p.progress}%</span>
                       <Link
                         href={`/clients/${p.client.id}`}
-                        className="inline-flex items-center gap-1 text-xs font-medium text-zinc-700 hover:text-zinc-900 transition-colors"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-zinc-700 hover:text-zinc-900 transition-colors"
                       >
-                        <span>View Client & Payment Details</span>
-                        <ArrowRight className="w-3 h-3" />
+                        <span>View Details</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>
                   </div>

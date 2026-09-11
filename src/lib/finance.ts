@@ -66,3 +66,15 @@ export function calculateDashboardStats(
     totalDue,
   };
 }
+
+/**
+ * Helper to get 2-character initials from client/project name
+ */
+export function getInitials(name: string): string {
+  if (!name) return 'CL';
+  const clean = name.trim();
+  const parts = clean.split(/\s+/);
+  if (parts.length === 1) return clean.substring(0, 2).toUpperCase();
+  return (parts[0][0] + parts[1][0]).toUpperCase();
+}
+

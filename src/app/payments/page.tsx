@@ -7,11 +7,12 @@ import { Sidebar } from '@/components/Sidebar';
 import { StatusBadge } from '@/components/StatusBadge';
 import { 
   formatCurrency, 
+  getInitials,
   PaymentStatus 
 } from '@/lib/finance';
 import { DatePreset, getPresetLabel } from '@/lib/date-filters';
 import { CustomDateRangePicker } from '@/components/CustomDateRangePicker';
-import { CreditCard, Search, IndianRupee, Wallet, Calendar, AlertCircle } from 'lucide-react';
+import { CreditCard, Search, IndianRupee, Wallet, Calendar, AlertCircle, Briefcase } from 'lucide-react';
 
 interface PaymentRow {
   clientId: string;
@@ -228,7 +229,7 @@ function PaymentsPageContent() {
             <div className="hidden sm:block overflow-x-auto">
               <table className="w-full text-left text-xs sm:text-sm">
                 <thead>
-                  <tr className="border-b border-zinc-100 text-[11px] font-semibold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
+                  <tr className="border-b border-zinc-100 text-[11px] font-bold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
                     <th className="py-3.5 px-4">Client</th>
                     <th className="py-3.5 px-4">Project</th>
                     <th className="py-3.5 px-4">Total Amount</th>
@@ -242,15 +243,20 @@ function PaymentsPageContent() {
                 <tbody className="divide-y divide-zinc-100">
                   {filteredRows.map((r, idx) => (
                     <tr key={idx} className="hover:bg-zinc-50/60 transition-colors">
-                      <td className="py-3.5 px-4 font-semibold text-zinc-900">
-                        <Link href={`/clients/${r.clientId}`} className="hover:text-zinc-600 transition-colors">
-                          {r.clientName}
-                        </Link>
+                      <td className="py-3.5 px-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white text-xs font-bold flex items-center justify-center shrink-0 shadow-xs">
+                            {getInitials(r.clientName)}
+                          </div>
+                          <Link href={`/clients/${r.clientId}`} className="font-semibold text-zinc-900 hover:text-zinc-600 transition-colors">
+                            {r.clientName}
+                          </Link>
+                        </div>
                       </td>
-                      <td className="py-3.5 px-4 text-zinc-600 font-normal">{r.projectName}</td>
+                      <td className="py-3.5 px-4 text-zinc-600 font-medium">{r.projectName}</td>
                       <td className="py-3.5 px-4 text-zinc-700 font-medium">{formatCurrency(r.totalAmount)}</td>
                       <td className="py-3.5 px-4 text-zinc-700 font-medium">{formatCurrency(r.paid)}</td>
-                      <td className="py-3.5 px-4 text-zinc-900 font-semibold">{formatCurrency(r.due)}</td>
+                      <td className={`py-3.5 px-4 font-bold ${r.due > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(r.due)}</td>
                       <td className="py-3.5 px-4">
                         <StatusBadge type="payment" status={r.status} />
                       </td>
@@ -260,34 +266,45 @@ function PaymentsPageContent() {
               </table>
             </div>
 
-            {/* Mobile Collapsed Cards (<640px) */}
-            <div className="sm:hidden divide-y divide-zinc-100">
+            {/* Redesigned Mobile Collapsed Cards (<640px) */}
+            <div className="sm:hidden p-3 space-y-3 bg-zinc-50/40">
               {filteredRows.map((r, idx) => (
-                <div key={idx} className="p-4 space-y-3">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <Link href={`/clients/${r.clientId}`} className="font-bold text-zinc-900 hover:underline text-base">
-                        {r.clientName}
-                      </Link>
-                      <p className="text-xs text-zinc-400">Project: {r.projectName}</p>
+                <div key={idx} className="p-4 border border-zinc-200/80 rounded-2xl bg-white shadow-xs hover:shadow-md transition-all space-y-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-10 h-10 rounded-xl bg-zinc-900 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs border border-zinc-800">
+                        {getInitials(r.clientName)}
+                      </div>
+                      <div className="min-w-0">
+                        <Link href={`/clients/${r.clientId}`} className="font-bold text-zinc-900 hover:text-zinc-600 transition-colors text-sm truncate block">
+                          {r.clientName}
+                        </Link>
+                        <div className="flex items-center gap-1.5 mt-0.5">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium border border-zinc-200/50">
+                            <Briefcase className="w-3 h-3 text-zinc-400" />
+                            <span className="truncate max-w-[140px]">{r.projectName}</span>
+                          </span>
+                        </div>
+                      </div>
                     </div>
                     <StatusBadge type="payment" status={r.status} />
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2 text-xs pt-2 border-t border-zinc-100 text-center">
-                    <div className="p-2 bg-zinc-50/80 rounded-xl border border-zinc-100">
-                      <span className="text-zinc-400 block text-[10px]">TOTAL</span>
-                      <span className="font-semibold text-zinc-900">{formatCurrency(r.totalAmount)}</span>
+                  {/* 3-Column Financial Grid */}
+                  <div className="grid grid-cols-3 gap-2 p-2.5 bg-zinc-50/80 rounded-xl border border-zinc-200/60 text-center">
+                    <div>
+                      <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider block">TOTAL</span>
+                      <span className="text-xs font-semibold text-zinc-900">{formatCurrency(r.totalAmount)}</span>
                     </div>
-                    <div className="p-2 bg-zinc-50/80 rounded-xl border border-zinc-100">
-                      <span className="text-zinc-400 block text-[10px]">
+                    <div>
+                      <span className="text-[10px] font-bold text-emerald-600/90 uppercase tracking-wider block">
                         {preset !== 'all_time' ? 'PAID (RANGE)' : 'PAID'}
                       </span>
-                      <span className="font-semibold text-zinc-900">{formatCurrency(r.paid)}</span>
+                      <span className="text-xs font-semibold text-emerald-700">{formatCurrency(r.paid)}</span>
                     </div>
-                    <div className="p-2 bg-zinc-50/80 rounded-xl border border-zinc-100">
-                      <span className="text-zinc-400 block text-[10px]">DUE</span>
-                      <span className="font-semibold text-zinc-900">{formatCurrency(r.due)}</span>
+                    <div>
+                      <span className="text-[10px] font-bold text-rose-500/90 uppercase tracking-wider block">DUE</span>
+                      <span className={`text-xs font-bold ${r.due > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(r.due)}</span>
                     </div>
                   </div>
                 </div>

@@ -11,6 +11,7 @@ import {
   calculateRemaining, 
   getPaymentStatus, 
   formatCurrency, 
+  getInitials,
   PaymentStatus 
 } from '@/lib/finance';
 import { DatePreset, getPaymentDateRange, getPresetLabel } from '@/lib/date-filters';
@@ -251,12 +252,12 @@ export function DashboardView({
         {/* 4 Dynamic Summary Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Card 1: Total Clients */}
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-3 shadow-sm hover:shadow transition-all">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
             <div className="flex items-center justify-between text-zinc-500">
-              <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400 truncate" title={`Total Clients${scopeSuffix}`}>
+              <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Total Clients${scopeSuffix}`}>
                 Total Clients{scopeSuffix}
               </span>
-              <div className="p-2.5 bg-zinc-100/80 rounded-xl text-zinc-700">
+              <div className="p-2.5 bg-indigo-50/80 text-indigo-600 rounded-xl border border-indigo-100">
                 <Users className="w-4 h-4" />
               </div>
             </div>
@@ -264,12 +265,12 @@ export function DashboardView({
           </div>
 
           {/* Card 2: Active Projects */}
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-3 shadow-sm hover:shadow transition-all">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
             <div className="flex items-center justify-between text-zinc-500">
-              <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400 truncate" title={`Active Projects${scopeSuffix}`}>
+              <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Active Projects${scopeSuffix}`}>
                 Active Projects{scopeSuffix}
               </span>
-              <div className="p-2.5 bg-zinc-100/80 rounded-xl text-zinc-700">
+              <div className="p-2.5 bg-amber-50/80 text-amber-600 rounded-xl border border-amber-100">
                 <Briefcase className="w-4 h-4" />
               </div>
             </div>
@@ -277,12 +278,12 @@ export function DashboardView({
           </div>
 
           {/* Card 3: Payment Due */}
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-3 shadow-sm hover:shadow transition-all">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
             <div className="flex items-center justify-between text-zinc-500">
-              <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400 truncate" title={`Payment Due${scopeSuffix}`}>
+              <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Payment Due${scopeSuffix}`}>
                 Payment Due{scopeSuffix}
               </span>
-              <div className="p-2.5 bg-zinc-100/80 rounded-xl text-zinc-700">
+              <div className="p-2.5 bg-rose-50/80 text-rose-600 rounded-xl border border-rose-100">
                 <Wallet className="w-4 h-4" />
               </div>
             </div>
@@ -290,12 +291,12 @@ export function DashboardView({
           </div>
 
           {/* Card 4: Payment Received */}
-          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-3 shadow-sm hover:shadow transition-all">
+          <div className="bg-white border border-zinc-200/80 rounded-2xl p-5 space-y-3 shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
             <div className="flex items-center justify-between text-zinc-500">
-              <span className="text-xs font-semibold uppercase tracking-wider text-zinc-400 truncate" title={`Payment Received${scopeSuffix}`}>
+              <span className="text-xs font-bold uppercase tracking-wider text-zinc-400 truncate" title={`Payment Received${scopeSuffix}`}>
                 Payment Received{scopeSuffix}
               </span>
-              <div className="p-2.5 bg-zinc-100/80 rounded-xl text-zinc-700">
+              <div className="p-2.5 bg-emerald-50/80 text-emerald-600 rounded-xl border border-emerald-100">
                 <IndianRupee className="w-4 h-4" />
               </div>
             </div>
@@ -329,7 +330,7 @@ export function DashboardView({
               <div className="hidden sm:block overflow-x-auto">
                 <table className="w-full text-left text-sm">
                   <thead>
-                    <tr className="border-b border-zinc-200/80 text-[11px] font-semibold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
+                    <tr className="border-b border-zinc-200/80 text-[11px] font-bold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
                       <th className="py-3 px-4">Client</th>
                       <th className="py-3 px-4">Project</th>
                       <th className="py-3 px-4">Upfront</th>
@@ -341,14 +342,19 @@ export function DashboardView({
                   <tbody className="divide-y divide-zinc-100">
                     {recentClients.map((c: RecentClientItem) => (
                       <tr key={c.id} className="hover:bg-zinc-50/60 transition-colors">
-                        <td className="py-3.5 px-4 font-semibold text-zinc-900">
-                          <Link href={`/clients/${c.id}`} className="hover:underline">
-                            {c.name}
-                          </Link>
+                        <td className="py-3.5 px-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white text-xs font-bold flex items-center justify-center shrink-0 shadow-xs">
+                              {getInitials(c.name)}
+                            </div>
+                            <Link href={`/clients/${c.id}`} className="font-semibold text-zinc-900 hover:underline">
+                              {c.name}
+                            </Link>
+                          </div>
                         </td>
-                        <td className="py-3.5 px-4 text-zinc-600">{c.projectName}</td>
+                        <td className="py-3.5 px-4 text-zinc-600 font-medium">{c.projectName}</td>
                         <td className="py-3.5 px-4 text-zinc-900">{formatCurrency(c.upfront)}</td>
-                        <td className="py-3.5 px-4 text-zinc-900 font-medium">{formatCurrency(c.remaining)}</td>
+                        <td className="py-3.5 px-4 text-zinc-900 font-semibold">{formatCurrency(c.remaining)}</td>
                         <td className="py-3.5 px-4">
                           <StatusBadge type="payment" status={c.payStatus} />
                         </td>
@@ -361,23 +367,47 @@ export function DashboardView({
                 </table>
               </div>
 
-              {/* Mobile Collapsed Cards */}
+              {/* Redesigned Mobile Collapsed Cards (<640px) */}
               <div className="sm:hidden space-y-3">
                 {recentClients.map((c: RecentClientItem) => (
-                  <div key={c.id} className="p-4 border border-zinc-200/80 rounded-xl bg-zinc-50/40 space-y-2.5">
-                    <div className="flex items-center justify-between">
-                      <Link href={`/clients/${c.id}`} className="font-semibold text-zinc-900 hover:underline">
-                        {c.name}
-                      </Link>
-                      <div className="flex items-center gap-2">
+                  <div key={c.id} className="p-4 border border-zinc-200/80 rounded-2xl bg-white shadow-xs hover:shadow-md transition-all space-y-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-10 h-10 rounded-xl bg-zinc-900 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs border border-zinc-800">
+                          {getInitials(c.name)}
+                        </div>
+                        <div className="min-w-0">
+                          <Link href={`/clients/${c.id}`} className="font-bold text-zinc-900 hover:text-zinc-600 transition-colors text-sm truncate block">
+                            {c.name}
+                          </Link>
+                          <div className="flex items-center gap-1.5 mt-0.5">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium border border-zinc-200/50">
+                              <Briefcase className="w-3 h-3 text-zinc-400" />
+                              <span className="truncate max-w-[140px]">{c.projectName}</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
                         <StatusBadge type="payment" status={c.payStatus} />
                         <DeleteClientButton clientId={c.id} clientName={c.name} />
                       </div>
                     </div>
-                    <p className="text-xs text-zinc-500">Project: {c.projectName}</p>
-                    <div className="flex items-center justify-between text-xs pt-2 border-t border-zinc-200/60 text-zinc-900 font-medium">
-                      <span>Upfront: {formatCurrency(c.upfront)}</span>
-                      <span>Remaining: {formatCurrency(c.remaining)}</span>
+
+                    {/* 3-Column Financial Grid */}
+                    <div className="grid grid-cols-3 gap-2 p-2.5 bg-zinc-50/80 rounded-xl border border-zinc-200/60 text-center">
+                      <div>
+                        <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider block">UPFRONT</span>
+                        <span className="text-xs font-semibold text-zinc-900">{formatCurrency(c.upfront)}</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-bold text-rose-500/90 uppercase tracking-wider block">REMAINING</span>
+                        <span className={`text-xs font-bold ${c.remaining > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(c.remaining)}</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-bold text-emerald-600/90 uppercase tracking-wider block">STATUS</span>
+                        <span className="text-[11px] font-bold text-zinc-700 block truncate">{c.payStatus}</span>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -412,7 +442,7 @@ export function DashboardView({
               <div className="hidden sm:block overflow-x-auto">
                 <table className="w-full text-left text-sm">
                   <thead>
-                    <tr className="border-b border-zinc-200/80 text-[11px] font-semibold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
+                    <tr className="border-b border-zinc-200/80 text-[11px] font-bold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
                       <th className="py-3 px-4">Client</th>
                       <th className="py-3 px-4">Project</th>
                       <th className="py-3 px-4">Total Value</th>
@@ -425,14 +455,19 @@ export function DashboardView({
                     {dueProjects.map((p: DueProjectItem, idx: number) => (
                       <tr key={idx} className="hover:bg-zinc-50/60 transition-colors">
                         <td className="py-3.5 px-4 font-semibold text-zinc-900">
-                          <Link href={`/clients/${p.clientId}`} className="hover:underline">
-                            {p.clientName}
-                          </Link>
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white text-xs font-bold flex items-center justify-center shrink-0 shadow-xs">
+                              {getInitials(p.clientName)}
+                            </div>
+                            <Link href={`/clients/${p.clientId}`} className="hover:underline">
+                              {p.clientName}
+                            </Link>
+                          </div>
                         </td>
-                        <td className="py-3.5 px-4 text-zinc-600">{p.projectName}</td>
+                        <td className="py-3.5 px-4 text-zinc-600 font-medium">{p.projectName}</td>
                         <td className="py-3.5 px-4 text-zinc-900">{formatCurrency(p.totalAmount)}</td>
                         <td className="py-3.5 px-4 text-zinc-900">{formatCurrency(p.paid)}</td>
-                        <td className="py-3.5 px-4 font-bold text-zinc-900">{formatCurrency(p.remaining)}</td>
+                        <td className="py-3.5 px-4 font-bold text-rose-600">{formatCurrency(p.remaining)}</td>
                         <td className="py-3.5 px-4 text-right">
                           <DeleteClientButton clientId={p.clientId} clientName={p.clientName} />
                         </td>
@@ -442,23 +477,46 @@ export function DashboardView({
                 </table>
               </div>
 
-              {/* Mobile Collapsed Cards */}
+              {/* Redesigned Mobile Collapsed Cards (<640px) */}
               <div className="sm:hidden space-y-3">
                 {dueProjects.map((p: DueProjectItem, idx: number) => (
-                  <div key={idx} className="p-4 border border-zinc-200/80 rounded-xl bg-zinc-50/40 space-y-2.5">
-                    <div className="flex items-center justify-between">
-                      <Link href={`/clients/${p.clientId}`} className="font-semibold text-zinc-900 hover:underline">
-                        {p.clientName}
-                      </Link>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold text-zinc-900">Due: {formatCurrency(p.remaining)}</span>
+                  <div key={idx} className="p-4 border border-zinc-200/80 rounded-2xl bg-white shadow-xs hover:shadow-md transition-all space-y-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-zinc-900 to-zinc-700 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs border border-zinc-800">
+                          {getInitials(p.clientName)}
+                        </div>
+                        <div className="min-w-0">
+                          <Link href={`/clients/${p.clientId}`} className="font-bold text-zinc-900 hover:text-zinc-600 transition-colors text-sm truncate block">
+                            {p.clientName}
+                          </Link>
+                          <div className="flex items-center gap-1.5 mt-0.5">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 text-[11px] font-medium border border-zinc-200/50">
+                              <Briefcase className="w-3 h-3 text-zinc-400" />
+                              <span className="truncate max-w-[140px]">{p.projectName}</span>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1 shrink-0">
                         <DeleteClientButton clientId={p.clientId} clientName={p.clientName} />
                       </div>
                     </div>
-                    <p className="text-xs text-zinc-500">Project: {p.projectName}</p>
-                    <div className="flex items-center justify-between text-xs pt-2 border-t border-zinc-200/60 text-zinc-600">
-                      <span>Total: {formatCurrency(p.totalAmount)}</span>
-                      <span>Paid: {formatCurrency(p.paid)}</span>
+
+                    {/* 3-Column Financial Grid */}
+                    <div className="grid grid-cols-3 gap-2 p-2.5 bg-zinc-50/80 rounded-xl border border-zinc-200/60 text-center">
+                      <div>
+                        <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider block">TOTAL</span>
+                        <span className="text-xs font-semibold text-zinc-900">{formatCurrency(p.totalAmount)}</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-bold text-emerald-600/90 uppercase tracking-wider block">PAID</span>
+                        <span className="text-xs font-semibold text-emerald-700">{formatCurrency(p.paid)}</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-bold text-rose-500/90 uppercase tracking-wider block">DUE</span>
+                        <span className="text-xs font-bold text-rose-600">{formatCurrency(p.remaining)}</span>
+                      </div>
                     </div>
                   </div>
                 ))}
