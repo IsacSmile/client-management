@@ -123,67 +123,69 @@ export default function ClientsPage() {
             No clients match your search &quot;{search}&quot;.
           </div>
         ) : (
-          <div className="bg-white border border-zinc-200/80 rounded-2xl overflow-hidden shadow-sm">
-            {/* Desktop & Tablet Table */}
-            <div className="hidden sm:block overflow-x-auto">
-              <table className="w-full text-left text-xs sm:text-sm">
-                <thead>
-                  <tr className="border-b border-zinc-100 text-[11px] font-bold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
-                    <th className="py-3 px-4">Client</th>
-                    <th className="py-3 px-4">Project</th>
-                    <th className="py-3 px-4">Scope</th>
-                    <th className="py-3 px-4">Total Paid</th>
-                    <th className="py-3 px-4">Remaining</th>
-                    <th className="py-3 px-4">Status</th>
-                    <th className="py-3 px-4 text-right">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-zinc-100">
-                  {filteredClients.map((c) => {
-                    const mainProject = c.projects[0];
-                    const totalAmount = mainProject ? mainProject.totalAmount : 0;
-                    const paid = mainProject ? calculateTotalPaid(mainProject.payments) : 0;
-                    const remaining = calculateRemaining(totalAmount, paid);
-                    const payStatus = mainProject ? getPaymentStatus(totalAmount, paid) : 'Unpaid';
+          <>
+            {/* Desktop & Tablet Table Container */}
+            <div className="hidden sm:block bg-white border border-zinc-200/80 rounded-2xl overflow-hidden shadow-sm">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs sm:text-sm">
+                  <thead>
+                    <tr className="border-b border-zinc-100 text-[11px] font-bold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
+                      <th className="py-3 px-4">Client</th>
+                      <th className="py-3 px-4">Project</th>
+                      <th className="py-3 px-4">Scope</th>
+                      <th className="py-3 px-4">Total Paid</th>
+                      <th className="py-3 px-4">Remaining</th>
+                      <th className="py-3 px-4">Status</th>
+                      <th className="py-3 px-4 text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-zinc-100">
+                    {filteredClients.map((c) => {
+                      const mainProject = c.projects[0];
+                      const totalAmount = mainProject ? mainProject.totalAmount : 0;
+                      const paid = mainProject ? calculateTotalPaid(mainProject.payments) : 0;
+                      const remaining = calculateRemaining(totalAmount, paid);
+                      const payStatus = mainProject ? getPaymentStatus(totalAmount, paid) : 'Unpaid';
 
-                    return (
-                      <tr key={c.id} className="hover:bg-zinc-50/60 transition-colors">
-                        <td className="py-3.5 px-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white text-xs font-bold flex items-center justify-center shrink-0 shadow-xs">
-                              {getInitials(c.name)}
+                      return (
+                        <tr key={c.id} className="hover:bg-zinc-50/60 transition-colors">
+                          <td className="py-3.5 px-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white text-xs font-bold flex items-center justify-center shrink-0 shadow-xs">
+                                {getInitials(c.name)}
+                              </div>
+                              <div>
+                                <Link href={`/clients/${c.id}`} className="font-semibold text-zinc-900 hover:text-zinc-600 transition-colors block">
+                                  {c.name}
+                                </Link>
+                                <span className="text-xs text-zinc-400 block font-normal">{c.email || c.phone || 'No contact'}</span>
+                              </div>
                             </div>
-                            <div>
-                              <Link href={`/clients/${c.id}`} className="font-semibold text-zinc-900 hover:text-zinc-600 transition-colors block">
-                                {c.name}
-                              </Link>
-                              <span className="text-xs text-zinc-400 block font-normal">{c.email || c.phone || 'No contact'}</span>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="py-3.5 px-4 text-zinc-900 font-medium">
-                          {mainProject ? mainProject.name : 'N/A'}
-                        </td>
-                        <td className="py-3.5 px-4 text-zinc-500 max-w-xs truncate font-normal">
-                          {mainProject ? mainProject.scope || '—' : '—'}
-                        </td>
-                        <td className="py-3.5 px-4 text-zinc-700 font-medium">{formatCurrency(paid)}</td>
-                        <td className={`py-3.5 px-4 font-semibold ${remaining > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(remaining)}</td>
-                        <td className="py-3.5 px-4">
-                          <StatusBadge type="payment" status={payStatus} />
-                        </td>
-                        <td className="py-3.5 px-4 text-right">
-                          <DeleteClientButton clientId={c.id} clientName={c.name} onSuccess={fetchClients} />
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+                          </td>
+                          <td className="py-3.5 px-4 text-zinc-900 font-medium">
+                            {mainProject ? mainProject.name : 'N/A'}
+                          </td>
+                          <td className="py-3.5 px-4 text-zinc-500 max-w-xs truncate font-normal">
+                            {mainProject ? mainProject.scope || '—' : '—'}
+                          </td>
+                          <td className="py-3.5 px-4 text-zinc-700 font-medium">{formatCurrency(paid)}</td>
+                          <td className={`py-3.5 px-4 font-semibold ${remaining > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(remaining)}</td>
+                          <td className="py-3.5 px-4">
+                            <StatusBadge type="payment" status={payStatus} />
+                          </td>
+                          <td className="py-3.5 px-4 text-right">
+                            <DeleteClientButton clientId={c.id} clientName={c.name} onSuccess={fetchClients} />
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-            {/* Redesigned Mobile Collapsed Cards (<640px) */}
-            <div className="sm:hidden p-3 space-y-3 bg-zinc-50/40">
+            {/* Redesigned Premium Mobile Floating Cards (<640px) */}
+            <div className="sm:hidden space-y-3.5">
               {filteredClients.map((c) => {
                 const mainProject = c.projects[0];
                 const totalAmount = mainProject ? mainProject.totalAmount : 0;
@@ -192,17 +194,20 @@ export default function ClientsPage() {
                 const payStatus = mainProject ? getPaymentStatus(totalAmount, paid) : 'Unpaid';
 
                 return (
-                  <div key={c.id} className="p-4 border border-zinc-200/80 rounded-2xl bg-white shadow-xs hover:shadow-md transition-all space-y-3">
+                  <div 
+                    key={c.id} 
+                    className="p-4.5 border border-zinc-200/90 rounded-2xl bg-white shadow-xs hover:shadow-md transition-all duration-200 space-y-3.5"
+                  >
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-10 h-10 rounded-xl bg-zinc-900 text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-xs border border-zinc-800">
+                        <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-950 text-white font-extrabold text-xs flex items-center justify-center shrink-0 shadow-xs border border-zinc-800">
                           {getInitials(c.name)}
                         </div>
                         <div className="min-w-0">
-                          <Link href={`/clients/${c.id}`} className="font-bold text-zinc-900 hover:text-zinc-600 transition-colors text-sm truncate block">
+                          <Link href={`/clients/${c.id}`} className="font-extrabold text-zinc-900 hover:text-zinc-600 transition-colors text-base tracking-tight truncate block">
                             {c.name}
                           </Link>
-                          <p className="text-xs text-zinc-400 truncate">{c.email || c.phone || 'No contact'}</p>
+                          <p className="text-xs text-zinc-400 truncate mt-0.5">{c.email || c.phone || 'No contact'}</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
@@ -213,33 +218,39 @@ export default function ClientsPage() {
 
                     {mainProject && (
                       <div className="flex items-center gap-1.5">
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100/90 text-zinc-700 text-xs font-medium border border-zinc-200/60">
-                          <Briefcase className="w-3.5 h-3.5 text-zinc-400" />
-                          <span>{mainProject.name}</span>
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-zinc-100/90 text-zinc-700 text-[11px] font-semibold border border-zinc-200/60">
+                          <Briefcase className="w-3 h-3 text-zinc-400" />
+                          <span className="truncate max-w-[150px]">{mainProject.name}</span>
                         </span>
                       </div>
                     )}
 
-                    {/* 3-Column Financial Grid */}
-                    <div className="grid grid-cols-3 gap-2 p-2.5 bg-zinc-50/80 rounded-xl border border-zinc-200/60 text-center">
-                      <div>
-                        <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider block">TOTAL</span>
-                        <span className="text-xs font-semibold text-zinc-900">{formatCurrency(totalAmount)}</span>
+                    {/* 3-Column Financial Grid Pill Cards */}
+                    <div className="grid grid-cols-3 gap-2 pt-0.5">
+                      <div className="p-2.5 bg-zinc-50/80 border border-zinc-200/60 rounded-xl text-center">
+                        <span className="text-[9px] font-extrabold text-zinc-400 uppercase tracking-wider block mb-0.5">TOTAL</span>
+                        <span className="text-xs font-extrabold text-zinc-900 block truncate">{formatCurrency(totalAmount)}</span>
                       </div>
-                      <div>
-                        <span className="text-[10px] font-bold text-emerald-600/90 uppercase tracking-wider block">PAID</span>
-                        <span className="text-xs font-semibold text-emerald-700">{formatCurrency(paid)}</span>
+                      <div className="p-2.5 bg-emerald-50/70 border border-emerald-200/60 rounded-xl text-center">
+                        <span className="text-[9px] font-extrabold text-emerald-700 uppercase tracking-wider block mb-0.5">PAID</span>
+                        <span className="text-xs font-extrabold text-emerald-950 block truncate">{formatCurrency(paid)}</span>
                       </div>
-                      <div>
-                        <span className="text-[10px] font-bold text-rose-500/90 uppercase tracking-wider block">DUE</span>
-                        <span className={`text-xs font-bold ${remaining > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(remaining)}</span>
+                      <div className={`p-2.5 rounded-xl text-center border ${
+                        remaining > 0 ? 'bg-rose-50/70 border-rose-200/60' : 'bg-zinc-50 border-zinc-200/60'
+                      }`}>
+                        <span className={`text-[9px] font-extrabold uppercase tracking-wider block mb-0.5 ${
+                          remaining > 0 ? 'text-rose-700' : 'text-zinc-400'
+                        }`}>DUE</span>
+                        <span className={`text-xs font-extrabold block truncate ${
+                          remaining > 0 ? 'text-rose-950' : 'text-zinc-900'
+                        }`}>{formatCurrency(remaining)}</span>
                       </div>
                     </div>
                   </div>
                 );
               })}
             </div>
-          </div>
+          </>
         )}
       </main>
     </div>

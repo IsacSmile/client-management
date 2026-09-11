@@ -224,50 +224,52 @@ function PaymentsPageContent() {
             </p>
           </div>
         ) : (
-          <div className="bg-white border border-zinc-200/80 rounded-2xl overflow-hidden shadow-sm">
-            {/* Desktop Table */}
-            <div className="hidden sm:block overflow-x-auto">
-              <table className="w-full text-left text-xs sm:text-sm">
-                <thead>
-                  <tr className="border-b border-zinc-100 text-[11px] font-bold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
-                    <th className="py-3.5 px-4">Client</th>
-                    <th className="py-3.5 px-4">Project</th>
-                    <th className="py-3.5 px-4">Total Amount</th>
-                    <th className="py-3.5 px-4">
-                      {preset !== 'all_time' ? `Paid (${getPresetLabel(preset)})` : 'Total Paid'}
-                    </th>
-                    <th className="py-3.5 px-4">Remaining Due</th>
-                    <th className="py-3.5 px-4">Status</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-zinc-100">
-                  {filteredRows.map((r, idx) => (
-                    <tr key={idx} className="hover:bg-zinc-50/60 transition-colors">
-                      <td className="py-3.5 px-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white text-xs font-bold flex items-center justify-center shrink-0 shadow-xs">
-                            {getInitials(r.clientName)}
-                          </div>
-                          <Link href={`/clients/${r.clientId}`} className="font-semibold text-zinc-900 hover:text-zinc-600 transition-colors">
-                            {r.clientName}
-                          </Link>
-                        </div>
-                      </td>
-                      <td className="py-3.5 px-4 text-zinc-600 font-medium">{r.projectName}</td>
-                      <td className="py-3.5 px-4 text-zinc-700 font-medium">{formatCurrency(r.totalAmount)}</td>
-                      <td className="py-3.5 px-4 text-zinc-700 font-medium">{formatCurrency(r.paid)}</td>
-                      <td className={`py-3.5 px-4 font-bold ${r.due > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(r.due)}</td>
-                      <td className="py-3.5 px-4">
-                        <StatusBadge type="payment" status={r.status} />
-                      </td>
+          <>
+            {/* Desktop & Tablet Table Container */}
+            <div className="hidden sm:block bg-white border border-zinc-200/80 rounded-2xl overflow-hidden shadow-sm">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs sm:text-sm">
+                  <thead>
+                    <tr className="border-b border-zinc-100 text-[11px] font-bold text-zinc-400 uppercase tracking-wider bg-zinc-50/60">
+                      <th className="py-3.5 px-4">Client</th>
+                      <th className="py-3.5 px-4">Project</th>
+                      <th className="py-3.5 px-4">Total Amount</th>
+                      <th className="py-3.5 px-4">
+                        {preset !== 'all_time' ? `Paid (${getPresetLabel(preset)})` : 'Total Paid'}
+                      </th>
+                      <th className="py-3.5 px-4">Remaining Due</th>
+                      <th className="py-3.5 px-4">Status</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-zinc-100">
+                    {filteredRows.map((r, idx) => (
+                      <tr key={idx} className="hover:bg-zinc-50/60 transition-colors">
+                        <td className="py-3.5 px-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-lg bg-zinc-900 text-white text-xs font-bold flex items-center justify-center shrink-0 shadow-xs">
+                              {getInitials(r.clientName)}
+                            </div>
+                            <Link href={`/clients/${r.clientId}`} className="font-semibold text-zinc-900 hover:text-zinc-600 transition-colors">
+                              {r.clientName}
+                            </Link>
+                          </div>
+                        </td>
+                        <td className="py-3.5 px-4 text-zinc-600 font-medium">{r.projectName}</td>
+                        <td className="py-3.5 px-4 text-zinc-700 font-medium">{formatCurrency(r.totalAmount)}</td>
+                        <td className="py-3.5 px-4 text-zinc-700 font-medium">{formatCurrency(r.paid)}</td>
+                        <td className={`py-3.5 px-4 font-bold ${r.due > 0 ? 'text-rose-600' : 'text-zinc-900'}`}>{formatCurrency(r.due)}</td>
+                        <td className="py-3.5 px-4">
+                          <StatusBadge type="payment" status={r.status} />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-            {/* Redesigned Premium Mobile Collapsed Cards (<640px) */}
-            <div className="sm:hidden p-3.5 space-y-3.5 bg-zinc-50/50">
+            {/* Redesigned Premium Mobile Floating Cards (<640px) */}
+            <div className="sm:hidden space-y-3.5">
               {filteredRows.map((r, idx) => (
                 <div 
                   key={idx} 
@@ -319,7 +321,7 @@ function PaymentsPageContent() {
                 </div>
               ))}
             </div>
-          </div>
+          </>
         )}
       </main>
     </div>
